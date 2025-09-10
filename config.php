@@ -89,9 +89,13 @@ if (isset($currentConfig['log_errors'])) {
     ini_set('log_errors', $currentConfig['log_errors'] ? '1' : '0');
 }
 
+// Load version from authoritative source
+$FCN_VERSION = trim(file_get_contents(__DIR__ . '/VERSION'));
+
 // Make config globally accessible
 $GLOBALS['FCN_CONFIG'] = $currentConfig;
 $GLOBALS['FCN_ENVIRONMENT'] = $environment;
+$GLOBALS['FCN_VERSION'] = $FCN_VERSION;
 
 /**
  * Get a configuration value with optional default.
@@ -134,4 +138,44 @@ function isDebugMode()
 function getCurrentEnvironment()
 {
     return $GLOBALS['FCN_ENVIRONMENT'];
+}
+
+/**
+ * Get the current application version.
+ *
+ * @return string Current version from VERSION file
+ */
+function getVersion()
+{
+    return $GLOBALS['FCN_VERSION'];
+}
+
+/**
+ * Get version information including environment.
+ *
+ * @param bool $includeEnvironment Whether to include environment in output
+ *
+ * @return string Formatted version string
+ */
+function getVersionInfo($includeEnvironment = true)
+{
+    $version = getVersion();
+    if ($includeEnvironment) {
+        $env = getCurrentEnvironment();
+        return "Fantasy Collecting v{$version} ({$env})";
+    }
+
+    return "Fantasy Collecting v{$version}";
+}
+
+/**
+ * Compare current version with a given version.
+ *
+ * @param string $compareVersion Version to compare against (e.g., '0.1.0')
+ *
+ * @return int -1 if current < compare, 0 if equal, 1 if current > compare
+ */
+function compareVersion($compareVersion)
+{
+    return version_compare(getVersion(), $compareVersion);
 }

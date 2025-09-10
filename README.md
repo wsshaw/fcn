@@ -1,4 +1,4 @@
-# Fantasy Collecting 0.1
+# Fantasy Collecting 0.2.0
 
 *README - Updated 2025-09-10; substantively updated 2013-09-01*
 
