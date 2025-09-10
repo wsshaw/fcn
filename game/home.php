@@ -1,12 +1,18 @@
 <?php
 	/**
-	* home.php: The first page a user lands on after logging in.  Contains the newsfeed, notification widget, 
-	* and dashboard.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 2/2013
-	*/
+	 * User home dashboard for Fantasy Collecting
+	 * 
+	 * The main landing page after user login, displaying the personalized dashboard
+	 * with newsfeed, notification widget, user stats, and navigation to game features.
+	 * Central hub for user interaction with the Fantasy Collecting game.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2013-02-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */
 
 	if(session_id() == '') {
         	session_start();

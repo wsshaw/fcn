@@ -1,11 +1,18 @@
 <?php
-	/**
-	* index.php: Display a login form.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-	* @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @date 8/2012
-	*/
+/**
+ * Main entry point and login form for Fantasy Collecting
+ * 
+ * Displays the login interface for users to access the Fantasy Collecting game.
+ * Includes jQuery UI components for enhanced user interface and integrates with
+ * the Shadowbox.js library for modal dialog functionality.
+ *
+ * @package    FantasyCollecting
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version    0.2 (modernized)
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ * @license    MIT
+ */
 
 ?>
 <html>

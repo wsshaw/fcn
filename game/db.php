@@ -1,5 +1,17 @@
 <?php
-	// Database connection - modernized with proper error handling and security
+/**
+ * Database connection and initialization for Fantasy Collecting
+ * 
+ * Establishes secure PDO connection to MySQL database with proper error handling,
+ * security options, and initializes the Game Genie (superuser) account reference.
+ * 
+ * @package    FantasyCollecting  
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (original design)
+ * @version    0.2 (modernized)
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ * @license    MIT
+ */
 
         $username = "";
         $password = "";

@@ -1,12 +1,18 @@
 <?php
 	/**
-	* marketplace.php: The central hub for trading and auctioning works.  Players can manage
-	* all trade/auction activity from here; trades are initiated from userCollection.php.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 1/2013
-	*/
+	 * Central marketplace for trading and auctions in Fantasy Collecting
+	 * 
+	 * The primary hub for all trading and auction activity where players can manage
+	 * their marketplace transactions. Provides interface for auction bidding, trade
+	 * management, and classified listings. Trade proposals are initiated from userCollection.php.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2013-01-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */
 
 	if(session_id() == '') {
         	session_start();

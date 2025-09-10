@@ -1,17 +1,22 @@
-<?     
+<?php     
 	/**
-	* mailProcessor.php: Accept input from a mail form and deliver messages to the intended 
-	* recipient.  This script is called in two ways: via ajax from response forms in mail.php,
-	* and via standard POST from mailCompose.php.  In the latter case, it needs to generate
-	* some output--hence the HTML content at the bottom.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 5/2012
-	* 
-	* @param string (via POST) - The message body.
-	* @param address (via POST) - The name of the recipient.  
-	*/ 
+	 * Message delivery processor for Fantasy Collecting mail system
+	 * 
+	 * Processes mail form submissions and delivers messages to intended recipients.
+	 * Handles dual calling modes: AJAX requests from response forms in mail.php
+	 * and standard POST requests from mailCompose.php. Generates appropriate
+	 * output for standard POST requests.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-05-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param string $_POST['string']  The message body content
+	 * @param string $_POST['address'] The recipient username
+	 */ 
 
 	if(session_id() == '') {
         	session_start();

@@ -1,18 +1,23 @@
 <?php
-
-	/**
-	* tradeProcessor.php: Form handler for trader.php.  Finalizes trade proposals.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*
-	* @param offeredTo (via POST): space-delimited list of work ids we're offering.
-	* @param fcgs (via POST): amount of money piled on top of trade request.
-	* @param moneyTransfer (via POST): direction that the money is being transferred (offer == you're offering this
-	* 	much; request == you're requesting that the trade partner supply it)
-	* @param requests (via POST): space-delimited list of work ids we're requesting in return.
-	*/
+/**
+ * Trade proposal processing handler for Fantasy Collecting
+ * 
+ * Handles form submissions from the trading interface, validates trade data,
+ * processes trade proposals between users, and records trade events in the
+ * game's event feed. Includes security validations and input sanitization.
+ *
+ * @package    FantasyCollecting
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version    0.2 (modernized with security improvements)
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ * @license    MIT
+ * 
+ * @param string $_POST['offeredTo']    Space-delimited list of artwork IDs being offered
+ * @param float  $_POST['fcgs']         Amount of game currency included in trade
+ * @param string $_POST['moneyTransfer'] Direction of money transfer ('offer' or 'request')
+ * @param string $_POST['requestedFrom'] Space-delimited list of artwork IDs being requested
+ */
 
 	if(session_id() == '') {
         	session_start();

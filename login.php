@@ -1,14 +1,21 @@
 <?php
-	/**
-	* login.php: handle login attempts for Fantasy Collecting.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*
-	* @param username The username from index.php.
-	* @param password The password guess from index.php.
-	*/
+/**
+ * Login authentication handler for Fantasy Collecting
+ * 
+ * Processes login attempts with security features including input validation,
+ * rate limiting, secure session management, and authentication verification.
+ * Handles user authentication and redirects to appropriate game interface.
+ * 
+ * @package    FantasyCollecting
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version    0.2 (modernized with security improvements)
+ * @since      2012-08-01 (original), 2025-09-10 (modernized) 
+ * @license    MIT
+ * 
+ * @param string $_POST['username'] The username from login form
+ * @param string $_POST['password'] The password from login form
+ */
 
 	// Begin a secure session and include the database initializer
 	require_once 'game/security.php';

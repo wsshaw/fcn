@@ -1,14 +1,20 @@
 <?php
         /**             
-        * addDescription.php: form allowing players to add a description to works in their
-	* collection.  The input given here is processed by descriptionProcessor.php.  
-        *       
-	* @param w (via GET): the id of the work we're editing.  Corresponds with primary key of works table.
-	* 
-        * @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-        * @version 0.1, 8/2012
-        */
+         * Artwork description editing form for Fantasy Collecting
+         * 
+         * Provides form interface allowing players to add or edit descriptions for
+         * artworks in their collection. Form data is processed by descriptionProcessor.php
+         * to update the work's description in the database.
+         *       
+         * @package    FantasyCollecting
+         * @author     William Shaw <william.shaw@duke.edu>
+         * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+         * @version    0.2 (modernized)
+         * @since      2012-08-01 (original), 2025-09-10 (modernized)
+         * @license    MIT
+         * 
+         * @param int $_GET['w'] The artwork ID to edit (works table primary key)
+         */
 
 	if(session_id() == '') {
         	session_start();

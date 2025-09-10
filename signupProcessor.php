@@ -1,18 +1,24 @@
 <?php
 	/**
-	* signupProcessor: Handle data from signup.php.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 10/2012
-	*
-	* @param name (via POST): The requested usernam.
-	* @param password (via POST): Password (first entry)
-	* @param confirm_password (via POST): Password (Validation entry)
-	* @param email (via POST): user's email address.  Not currently used by the game.
-	* @param ok_to_use_record (via POST): boolean value indicating whether the player consents to 
-	*   have his/her record of gameplay used in research, etc.
-	*/
+	 * User registration processing for Fantasy Collecting
+	 * 
+	 * Processes new user registration attempts from the signup form, validates
+	 * input data, checks for username availability, and creates new user accounts.
+	 * Includes basic input validation and error handling.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-10-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param string $_POST['name']             The requested username
+	 * @param string $_POST['password']         Password (first entry)
+	 * @param string $_POST['confirm_password'] Password (validation entry)
+	 * @param string $_POST['email']            User's email address
+	 * @param bool   $_POST['ok_to_use_record'] User consent for research data usage
+	 */
 	$r_username = $_POST['name'];
 	$r_password = $_POST['password'];
 	$r_password_confirm = $_POST['confirm_password'];

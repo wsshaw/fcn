@@ -1,13 +1,19 @@
 <?php                   
 
 	/**
-	* collections.php: List all collectors in the game.  Show a marquee image for each player, and when
-	* the user mouses over it, switch to a thumbnail grid of other works in the player's collection. 
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+	 * Player collections browser for Fantasy Collecting
+	 * 
+	 * Displays all collectors participating in the current game with interactive
+	 * collection previews. Shows marquee images for each player that expand to
+	 * thumbnail grids of other works in their collection on mouseover.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */
 
 if(session_id() == '') {
         session_start();

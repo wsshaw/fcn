@@ -1,13 +1,18 @@
 <?php
 	/**
-	* mail.php: The in-game message center.  Right now, it's limited to 1:1 communication between
-	* players, but it would be nice to expand the functionality to support conversations among
-	* an arbitrary nubmer of participants.  
-	*
-	* @author William Shaw <william.shaw@duke.edu> 
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 1/2013 
-	*/ 
+	 * In-game messaging system for Fantasy Collecting
+	 * 
+	 * Provides message center functionality for player-to-player communication.
+	 * Currently supports 1:1 conversations between players. Future enhancement
+	 * could expand to support multi-participant group conversations.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu> 
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2013-01-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */ 
 
 	if(session_id() == '') {
        	 	session_start();

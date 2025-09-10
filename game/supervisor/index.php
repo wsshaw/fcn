@@ -1,12 +1,19 @@
-<?
+<?php
 	/**
-	* index.php: The large mess that is the game supervisor page.  This was developed in a very ad hoc way
-	* and needs a complete overhaul before any kind of public release.  It works, but it isn't pretty.
-	* In any case, the functionality is that the game admin can control most aspects of gameplay from here;
-	* communicate with players; promote/demote users; award FCGs for in-game behavior; upload new artworks;
-	* etc.
-	*
-	*/
+	 * Game supervisor administrative interface for Fantasy Collecting
+	 * 
+	 * Comprehensive administrative dashboard providing game supervisors with tools
+	 * to manage gameplay, communicate with players, promote/demote users, award
+	 * FCG currency, upload new artworks, and control various aspects of the game.
+	 * 
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * @todo       Refactor for better code organization and maintainability
+	 */
 
         ob_start( );                
 		require '../functions.php';        

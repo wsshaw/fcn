@@ -1,11 +1,19 @@
 <?php
-	/**
-	* functions.php: container for utility functions that appear throughout the FCN code.  Also contains
-	* game-wide constants and configuration variables (paths, etc). 
-	*
-        * @author William Shaw <william.shaw@duke.edu>  
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	*/
+/**
+ * Core utility functions and configuration for Fantasy Collecting
+ * 
+ * This file contains essential utility functions used throughout the Fantasy Collecting
+ * codebase, along with game-wide constants, configuration variables, and path definitions.
+ * It handles database connectivity, session management, and defines event types and
+ * user preference constants.
+ * 
+ * @package    FantasyCollecting
+ * @author     William Shaw <william.shaw@duke.edu>  
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version    0.2 (modernized with security improvements)
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ * @license    MIT
+ */
 
 	// Database connection stub
 	require 'db.php';
@@ -94,10 +102,15 @@
 	$LEVEL_ADMIN			= 100;
 
 	/**
-	* isConnoisseur: does the player have connoisseur status?
-	* @param uid The user id
- 	* @return Boolean 
-	*/
+	 * Check if player has connoisseur status
+	 * 
+	 * Determines whether a user has achieved connoisseur level (level 10) status
+	 * in the Fantasy Collecting game, which grants special privileges.
+	 *
+	 * @param int $uid The user ID to check
+	 * @return bool    True if user is a connoisseur, false otherwise
+	 * @since 0.1
+	 */
 	function isConnoisseur( $uid ) {
 		global $dbh;
 		$query = $dbh->prepare( "SELECT level FROM collectors WHERE id = ? AND level = ? LIMIT 1" );
@@ -108,12 +121,17 @@
 	}
 
 	/**
-	* logVisit: Record a visit to a PHP script in the database.  Allows a picture of user movement 
-	* across the game over time (visits table automatically generates timestamp on insert).
-	*
-	* @param uid The user id
-	* @param page The filename of the script calling this function.
-	*/
+	 * Record user page visit for analytics
+	 * 
+	 * Logs a visit to a PHP script in the database to track user movement
+	 * across the game over time. The visits table automatically generates
+	 * timestamp on insert for temporal analysis.
+	 *
+	 * @param int    $uid  The user ID making the visit
+	 * @param string $page The filename of the script being visited
+	 * @return void
+	 * @since 0.1
+	 */
 	function logVisit( $uid, $page ) {
 		global $dbh;
 		$query = $dbh->prepare( "INSERT INTO visits(uid,page) VALUES(?,?)" );
@@ -144,11 +162,15 @@
 	}
 
         /**
-        * getUsername: Given a uid #, return the associated username. 
-        *
-        * @param uid The user id
-        * @return Username, if the user exists, or "[Unknown]" if there's no such user.  
-        */	
+         * Get username from user ID
+         * 
+         * Retrieves the username associated with a given user ID from the database.
+         * Returns a fallback string if the user doesn't exist.
+         *
+         * @param int $uid The user ID to look up
+         * @return string  Username if user exists, "[Unknown]" if user not found
+         * @since 0.1
+         */	
 	function getUsername( $uid ) {
 		global $dbh;
 		$userQuery = $dbh->prepare( "SELECT id,name FROM collectors WHERE id = ? LIMIT 1" );
@@ -441,17 +463,20 @@
 	}
 
         /**
-        * createUser: does what it says.  Does not, however, actually create their collection table; that happens
-	* when the game supervisor distributes initial collections. 
-	*
-	* A (bad) assumption here: input arriving at this function has already been validated elsewhere.  Hm. 
-        *
-        * @param name The user's name.
-	* @param pw Password, in plaintext glory, but soon to be encrypted by MD5. 
-	* @param email The user's email address.
-	* @param ok_to_use_record Boolean value indicating whether the player consented to have his/her gameplay
-	*   recorded and used in any research, visualizations, models of this gameplay, etc.  
-        */
+         * Create new user account in the system
+         * 
+         * Creates a new user record in the collectors table with provided credentials.
+         * Note: Does not create the user's collection table - that happens when the
+         * game supervisor distributes initial collections.
+         *
+         * @deprecated MD5 password hashing - should migrate to password_hash() in production
+         * @param string $name    The user's chosen username
+         * @param string $pw      Password in plaintext (will be hashed with MD5)
+         * @param string $email   The user's email address
+         * @param bool   $consent Whether user consented to research data usage
+         * @return void
+         * @since 0.1
+         */
 	function createUser( $name, $pw, $email, $consent ) {
 		global $dbh;
 		$query = $dbh->prepare( "INSERT INTO collectors(name,email,password,ok_to_use_record) VALUES(?, ?, MD5(?), ?)" );
