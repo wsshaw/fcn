@@ -1,4 +1,4 @@
-<?
+<?php
 
 	/**
 	* tradeProcessor.php: Form handler for trader.php.  Finalizes trade proposals.  
@@ -18,13 +18,20 @@
         	session_start();
 	}
 
-        $gameinstance = $_SESSION['gameinstance'];
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-	$offers = $_POST['offeredTo'];
-	$fcgs = $_POST['fcgs'];
-	$direction = $_POST['moneyTransfer'];
-	$requests = $_POST['requestedFrom'];
+        // Input validation and sanitization
+        $gameinstance = isset($_SESSION['gameinstance']) ? (int)$_SESSION['gameinstance'] : 0;
+        $uname = isset($_SESSION['uname']) ? htmlspecialchars($_SESSION['uname'], ENT_QUOTES, 'UTF-8') : '';
+        $uuid = isset($_SESSION['uuid']) ? (int)$_SESSION['uuid'] : 0;
+        
+        // Validate POST data exists
+        if (!isset($_POST['offeredTo']) || !isset($_POST['fcgs']) || !isset($_POST['moneyTransfer']) || !isset($_POST['requestedFrom'])) {
+            die("Missing required form data.");
+        }
+        
+	$offers = trim($_POST['offeredTo']);
+	$fcgs = (float)$_POST['fcgs'];
+	$direction = in_array($_POST['moneyTransfer'], ['offer', 'request']) ? $_POST['moneyTransfer'] : 'offer';
+	$requests = trim($_POST['requestedFrom']);
 
         ob_start( );
                 require 'functions.php';
@@ -156,7 +163,7 @@
         $query->bindValue( 1, $E_TRADE_PROPOSED );
         $query->bindValue( 2, $uuid );
         $query->bindValue( 3, $_SESSION['last_trade_with'] );
-        $query->bindValue( 4, mysql_real_escape_string( $tradeDesc ) );
+        $query->bindValue( 4, $tradeDesc );
 	$query->bindValue( 5, $offers );
 	$query->bindValue( 6, $requests );
 	$query->bindValue( 7, $headline );

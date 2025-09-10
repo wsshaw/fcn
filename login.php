@@ -1,4 +1,4 @@
-<?
+<?php
 	/**
 	* login.php: handle login attempts for Fantasy Collecting.
 	*
@@ -10,8 +10,15 @@
 	* @param password The password guess from index.php.
 	*/
 
-	// Begin a session and include the database initializer
+	// Begin a secure session and include the database initializer
+	require_once 'game/security.php';
+	
+	// Set secure session configuration
+	ini_set('session.cookie_httponly', 1);
+	ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+	ini_set('session.use_strict_mode', 1);
 	session_start();
+	
         require_once 'game/db.php';
 	$gameinstance = -1;
 
@@ -34,26 +41,44 @@
 <link rel="stylesheet" type="text/css" href="game/jquery-ui.css"/>
 </head>
 <body>
-<?
+<?php
 	$uuid = 0;
 	$uname = "";
-	$guess = $_POST['password'];
+	
+	// Validate input exists
+	if (!isset($_POST['username']) || !isset($_POST['password'])) {
+		echo "<p style='color: red;'>Missing login credentials.</p>";
+		echo "<p><a href='index.php'>Try again</a></p>";
+		exit();
+	}
+	
+	$username = sanitize_string($_POST['username']);
+	$password = $_POST['password']; // Keep raw for password verification
+	
+	// Rate limiting for login attempts
+	if (!check_rate_limit('login', 5)) {
+		echo "<p style='color: red;'>Too many login attempts. Please wait a minute.</p>";
+		echo "<p><a href='index.php'>Try again</a></p>";
+		exit();
+	}
 
-	// Passwords are encrypted with MD5, which is probably fine for a simple Web game...
-	$stmt = $dbh->prepare( "SELECT id,name,COUNT(*) AS c FROM collectors WHERE name = ? AND password = MD5(?)" );
-	$stmt->bindValue( 1, $_POST['username'] );
-	$stmt->bindValue( 2, $guess );
-	$stmt->execute( );
-	while( $row = $stmt->fetch( ) )
-	{
-		if ( $row['c'] != "1" ) 
-		{
-			echo( "<h1>Invalid user or password.</h1>" );
-			echo ("</body></html>\n" );
-			exit( );
-		}
+	// WARNING: This system still uses MD5 for backward compatibility with existing passwords
+	// In a real modernization, you would need to migrate to password_hash()/password_verify()
+	$stmt = $dbh->prepare( "SELECT id, name FROM collectors WHERE name = ? AND password = MD5(?)" );
+	$stmt->execute([$username, $password]);
+	$row = $stmt->fetch();
+	
+	if ($row)
+	{ 
 		$uuid = $row['id'];
 		$uname = $row['name'];
+	}
+	else 
+	{
+		echo( "<h1>Invalid user or password.</h1>" );
+		echo( "<p><a href='index.php'>Try again</a></p>" );
+		echo ("</body></html>\n" );
+		exit( );
 	}
 
 	// See if the user is playing more than one FC game.  This functionality is deprecated, but the code

@@ -9,11 +9,23 @@
 
 	// Database connection stub
 	require 'db.php';
+	require 'security.php';
 
         $mhost = "localhost";
-        $gameinstance = $_SESSION['gameinstance'];
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
+        
+        // Secure session handling
+        if (session_status() === PHP_SESSION_NONE) {
+            // Set secure session configuration
+            ini_set('session.cookie_httponly', 1);
+            ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+            ini_set('session.use_strict_mode', 1);
+            session_start();
+        }
+        
+        // Safely get session variables with defaults
+        $gameinstance = sanitize_int($_SESSION['gameinstance'] ?? null, 1);
+        $uname = sanitize_string($_SESSION['uname'] ?? null);
+        $uuid = sanitize_int($_SESSION['uuid'] ?? null);
 
 	// Root path of FCN game files.
 	$FCN_ROOT			= "/complete/path/on/your/server/";

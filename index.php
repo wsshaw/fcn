@@ -1,4 +1,4 @@
-<?
+<?php
 	/**
 	* index.php: Display a login form.
 	*

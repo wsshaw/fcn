@@ -1,4 +1,4 @@
-<?
+<?php
 	/**
 	* logout.php: End the user's session.
 	*
