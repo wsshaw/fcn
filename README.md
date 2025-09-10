@@ -1,12 +1,12 @@
 # Fantasy Collecting 0.2.0
 
-*README - Updated 2025-09-10; substantively updated 2013-09-01*
+*README - Updated 2025-09-10 to reflect current software status; substantively updated 2013-09-01*
 
 ## What is this?
 
-Fantasy Collecting (FC) is a classroom teaching and research tool that uses the activity of art markets to help students learn about art. In the process, students experience firsthand how promotion and trading influence an artwork's market value.
+Fantasy Collecting (FC) is a classroom teaching and research tool that uses the activity of art markets to help students learn about art. In the process, students experience firsthand how promotion and trading influence an artwork's market value. It was written in 2012 and released under the MIT License. This repository is a fork of that initial version meant to modernize Fantasy Collecting and correct the hacker-style technical debt that I knew I was introducing way back when.
 
-**NOTE (2025-09-10):** This code isn't safe to run in a production environment at the moment. There are too many vulnerabilities (SQL injection, MD5, CSRF), but I started a small project to modernize the code and deploy it experimentally. Fixes are incoming as I have time to add them, but don't assume that the software is ready for public use.
+**NOTE (2025-09-10):** This code isn't safe to run in a production environment at the moment. There are too many vulnerabilities (SQL injection, MD5, CSRF), but I started a small project to modernize the code and deploy it experimentally. Fixes are incoming as I have time to add them, but don't assume that the software is ready for public use. -Will
 
 ### Resources
 
