@@ -71,7 +71,7 @@ $workCount = $workCountFetch['count'];
 			console.log( submissionData );
                         $.ajax( {
                                 type: "GET",
-                                url: "http://humanities-dev-01.lib.duke.edu/projects/fcn/new/supervisor/ca.php",
+                                url: "<?php echo getGameUrl('supervisor/ca.php'); ?>",
                                 data: submissionData,
                                 success: function( result ) {
 					console.log( submissionData );
@@ -87,7 +87,7 @@ $workCount = $workCountFetch['count'];
 			var submissionData = $('form#promotionForm' ).serialize( );
 			$.ajax( {
 				type: "GET",
-				url: "http://humanities-dev-01.lib.duke.edu/projects/fcn/new/supervisor/promote.php",
+				url: "<?php echo getGameUrl('supervisor/promote.php'); ?>",
 				data: submissionData,
 				success: function( result ) {
 					 $("#dialog-confirm").html( result );
@@ -111,7 +111,7 @@ $workCount = $workCountFetch['count'];
                         var submissionData = $('form#awardForm' ).serialize( );
                         $.ajax( {
                                 type: "GET",
-                                url: "http://humanities-dev-01.lib.duke.edu/projects/fcn/new/supervisor/award.php",
+                                url: "<?php echo getGameUrl('supervisor/award.php'); ?>",
                                 data: submissionData,
                                 success: function( result ) {
                                          $("#dialog-confirm").html( result );

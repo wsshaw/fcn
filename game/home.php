@@ -41,7 +41,7 @@ logVisit($uuid, basename(__FILE__));
 <link rel="stylesheet" type="text/css" href="resources/resources/shadowbox.css">
 <link rel="stylesheet" type="text/css" href="resources/jquery-ui.css"/>
 <script type="text/javascript" src="resources/shadowbox.js"></script>
-<script src="http://d3js.org/d3.v2.js"></script>
+<script src="<?php echo getConfig('external_resources.d3js_url', 'https://d3js.org/d3.v2.js'); ?>"></script>
 <script type="text/javascript" src="resources/jquery.ui.potato.menu.js"></script>
 <link rel="stylesheet" type="text/css" href="resources/jquery.ui.potato.menu.css"/>
 <script type="text/javascript">

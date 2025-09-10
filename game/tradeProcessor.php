@@ -170,7 +170,7 @@ $query->bindValue(7, $headline);
 $query->bindValue(8, $tradeId);
 $query->execute();
 
-$tradeNotificationString = '<a href="' . $FCN_ROOT . 'marketplace.php?#trades">' . getUsername($uuid) . ' proposed a trade with you.</a>';
+$tradeNotificationString = '<a href="' . getBaseUrl('game/marketplace.php?#trades') . '">' . getUsername($uuid) . ' proposed a trade with you.</a>';
 
 createNotification($_SESSION['last_trade_with'], $E_TRADE_PROPOSED, $tradeNotificationString);
 

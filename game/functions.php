@@ -18,6 +18,9 @@
  * @license    MIT
  */
 
+// Load configuration first
+require_once '../config.php';
+
 // Database connection stub
 require 'db.php';
 require 'security.php';
@@ -26,9 +29,9 @@ $mhost = 'localhost';
 
 // Secure session handling
 if (session_status() === PHP_SESSION_NONE) {
-    // Set secure session configuration
+    // Set secure session configuration based on environment
     ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+    ini_set('session.cookie_secure', getConfig('security.session_cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
     ini_set('session.use_strict_mode', 1);
     session_start();
 }
@@ -38,9 +41,16 @@ $gameinstance = sanitize_int($_SESSION['gameinstance'] ?? null, 1);
 $uname = sanitize_string($_SESSION['uname'] ?? null);
 $uuid = sanitize_int($_SESSION['uuid'] ?? null);
 
-// Root path of FCN game files.
-$FCN_ROOT = '/complete/path/on/your/server/';
+// Dynamic base URL detection
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$scriptPath = dirname($_SERVER['SCRIPT_NAME']);
+$basePath = rtrim(str_replace('/game', '', $scriptPath), '/');
 
+// Global URL constants
+$FCN_BASE_URL = $protocol . $host . $basePath;
+$FCN_ROOT = $basePath . '/';
+$FCN_GAME_URL = $FCN_BASE_URL . '/game';
 $FCN_IMAGES_PATH = $FCN_ROOT . 'resources/img/';
 
 $CURRENCY_SYMBOL = '&#8750;';	// Unicode 222E (integral symbol)
@@ -103,6 +113,52 @@ $REASON_INCOME_FROM_P2P_LOAN = 15;
 $LEVEL_DEFAULT_PLAYER = 1;
 $LEVEL_CONNOISSEUR = 10;
 $LEVEL_ADMIN = 100;
+
+/**
+ * Get a game-relative URL.
+ *
+ * @param string $path The relative path within the game directory
+ *
+ * @return string Complete URL to the game resource
+ *
+ * @since 0.2
+ */
+function getGameUrl($path = '')
+{
+    global $FCN_GAME_URL;
+
+    return $FCN_GAME_URL . '/' . ltrim($path, '/');
+}
+
+/**
+ * Get a base application URL.
+ *
+ * @param string $path The relative path within the application
+ *
+ * @return string Complete URL to the application resource
+ *
+ * @since 0.2
+ */
+function getBaseUrl($path = '')
+{
+    global $FCN_BASE_URL;
+
+    return $FCN_BASE_URL . '/' . ltrim($path, '/');
+}
+
+/**
+ * Get the current base URL for the application.
+ *
+ * @return string The base URL including protocol and host
+ *
+ * @since 0.2
+ */
+function getCurrentBaseUrl()
+{
+    global $FCN_BASE_URL;
+
+    return $FCN_BASE_URL;
+}
 
 /**
  * Check if player has connoisseur status.

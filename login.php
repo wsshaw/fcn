@@ -20,11 +20,12 @@
  */
 
 // Begin a secure session and include the database initializer
+require_once 'config.php';
 require_once 'game/security.php';
 
-// Set secure session configuration
+// Set secure session configuration based on environment
 ini_set('session.cookie_httponly', 1);
-ini_set('session.cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+ini_set('session.cookie_secure', getConfig('security.session_cookie_secure', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? '1' : '0');
 ini_set('session.use_strict_mode', 1);
 session_start();
 
