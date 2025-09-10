@@ -11,8 +11,21 @@ Fantasy Collecting (FC) is a classroom teaching and research tool that uses the 
 For more information about Fantasy Collecting, please see:
 - [Can a Game Change How We Learn About Art?](http://researchcommons.library.duke.edu/can-a-game-change-how-we-learn-about-art/)
 
-Gameplay documentation is available as an instructional video on YouTube. We've also posted videos that explain the design and pedagogical goals behind Fantasy Collecting:
-- [Fantasy Collecting Video Playlist](https://www.youtube.com/playlist?list=PLCtm1VP4HzgQhQtyyzM0Kdh6IiQ7F8ZrX)
+Gameplay documentation is available as instructional videos on YouTube. We've also posted videos that explain the design and pedagogical goals behind Fantasy Collecting:
+
+*Background and Design (1/3)*
+
+[![Fantasy Collecting: Background (1/3)](https://img.youtube.com/vi/MQsHH7fnS4c/mqdefault.jpg)](https://youtu.be/MQsHH7fnS4c?si=-BCA4INmEprM8pLV)
+
+*Gameplay (2/3)*
+
+[![Fantasy Collecting: Gameplay (2/3)](https://img.youtube.com/vi/i8QG2bexQKM/mqdefault.jpg)](https://youtu.be/i8QG2bexQKM?si=VikKkZ7Unx7uW4ue)
+
+*Outcomes (3/3)*
+
+[![Fantasy Collecting: Outcomes (3/3)](https://img.youtube.com/vi/aSNtbcCF3zg/mqdefault.jpg)](https://youtu.be/aSNtbcCF3zg?si=soNBM_t9YGwx1Qmp)
+
+[View complete playlist](https://www.youtube.com/playlist?list=PLCtm1VP4HzgQhQtyyzM0Kdh6IiQ7F8ZrX)
 
 ### Credits
 
