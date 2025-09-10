@@ -1,6 +1,6 @@
 # Fantasy Collecting 0.1
 
-*README - Updated 2025-09-10; substantively updated 9/1/2013*
+*README - Updated 2025-09-10; substantively updated 2013-09-01*
 
 ## What is this?
 
