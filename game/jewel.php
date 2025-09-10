@@ -2,30 +2,31 @@
 /**
  * jewel.php: So named because the notification feed was once accessible from a Facebook-style
  * jewel icon. This script is included in the major game state pages and prints out the
- * persistent notification stream (new messages, trades, etc.)
+ * persistent notification stream (new messages, trades, etc.).
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2012-10 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-		session_start();
-	}
+ob_start();
+require 'db.php';
+ob_end_clean();
 
-	ob_start( );
-		require 'db.php';
-	ob_end_clean( );
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
 
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-
-	// Session variable keeping track of the last time the jewel was loaded.  We pass this information
-	// to stream.php, the helper that delivers new notifications on the fly. 
-	$_SESSION['lastJewelLoadTime'] = time();
+// Session variable keeping track of the last time the jewel was loaded.  We pass this information
+// to stream.php, the helper that delivers new notifications on the fly.
+$_SESSION['lastJewelLoadTime'] = time();
 
 ?>
 <script language="javascript" type="text/javascript">
@@ -67,16 +68,16 @@
 </div-->
 <div style="position:fixed; right:0; bottom:0; height:500; overflow:auto; width:250; border:2px solid lightgrey; border-top: none;" id="jewel">
 <div id="notificationContent" style="font-size:90%;margin-top:0px;overflow:auto">
-<?
-	// When loading jewel.php, populate this div with previous notifications.  New ones come in via the
-	// polling function wrapped around stream.php.  
-        $query = $dbh->prepare( "SELECT * FROM notifications WHERE (target = ? OR target = -1) ORDER BY date DESC" );
-        $query->bindParam( 1, $uuid ); 
-        $query->execute( );
-        while ( $row = $query->fetch( ) ) {
-		// This "style" should really be in resources/fcn.css fixme
-                echo( "<div style=\"clear:both;padding:4px;vertical-align:top;\"><img src=\"resources/icons/" . getIconForEventType( $row['type'] ) . "\" style=\"margin-top:4px;width:12px;float:left;padding-right:4px;padding-bottom:4px;\"/>" . $row['text'] . "</div>" );
-        }
+<?php
+    // When loading jewel.php, populate this div with previous notifications.  New ones come in via the
+    // polling function wrapped around stream.php.
+        $query = $dbh->prepare('SELECT * FROM notifications WHERE (target = ? OR target = -1) ORDER BY date DESC');
+$query->bindParam(1, $uuid);
+$query->execute();
+while ($row = $query->fetch()) {
+    // This "style" should really be in resources/fcn.css fixme
+    echo '<div style="clear:both;padding:4px;vertical-align:top;"><img src="resources/icons/' . getIconForEventType($row['type']) . '" style="margin-top:4px;width:12px;float:left;padding-right:4px;padding-bottom:4px;"/>' . $row['text'] . '</div>';
+}
 ?>
 </div>
 </div>

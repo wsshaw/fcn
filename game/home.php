@@ -1,37 +1,38 @@
 <?php
-	/**
-	 * User home dashboard for Fantasy Collecting
-	 * 
-	 * The main landing page after user login, displaying the personalized dashboard
-	 * with newsfeed, notification widget, user stats, and navigation to game features.
-	 * Central hub for user interaction with the Fantasy Collecting game.
-	 *
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2013-02-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 */
+/**
+ * User home dashboard for Fantasy Collecting.
+ *
+ * The main landing page after user login, displaying the personalized dashboard
+ * with newsfeed, notification widget, user stats, and navigation to game features.
+ * Central hub for user interaction with the Fantasy Collecting game.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2013-02-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
+$gameinstance = $_SESSION['gameinstance'];
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
 
-        $gameinstance = $_SESSION['gameinstance']; 
-	$uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
+ob_start();
+require 'db.php';
+require 'functions.php';
+ob_end_clean();
 
-        ob_start( );      
-		require 'db.php';
-		require 'functions.php';
-	ob_end_clean( );
-
-	logVisit( $uuid, basename( __FILE__ ) );
+logVisit($uuid, basename(__FILE__));
 ?>
 <html>
 <head>                                  
-<title>Fantasy Collecting: Home (<?php echo getUserName( $uuid ); ?>)</title>
+<title>Fantasy Collecting: Home (<?php echo getUserName($uuid); ?>)</title>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script><script type="text/javascript">
         google.load( "jquery", "1" );           
         google.load( "jqueryui", "1" );                 
@@ -84,7 +85,7 @@
                         var bn = $(this).attr('format');
                         var action = $(this).attr( 'formact' );	//formact = approve/reject
                         var submissionData = $('form#' + bn ).serialize( ); 
-                        submissionData += '&action=' + action + '&uuid=' + <?php echo $uuid;?>;
+                        submissionData += '&action=' + action + '&uuid=' + <?php echo $uuid; ?>;
                         console.log( submissionData );
                         $.ajax( {
                                 type: "GET",
@@ -188,70 +189,68 @@
 </script>
 </head>         
 <body>         
-<?php include('topBar.php'); ?>
+<?php include 'topBar.php'; ?>
 <div class="body">
 <div id="tabs" style="min-width:50%;max-width:80%;margin-left:40px;">
 	<ul>
 	<li><a href="#allactivity">All Activity</a></li>
 	<li><a href="#dashboard">Dashboard</a></li>
 	<?php
-		if ( isConnoisseur( $uuid ) ) {
-			// Some visual indicator that the user is a connoisseur, and a tab containing the tombstone approval code
-			echo( "<li><a href=\"#con\"><img src=\"resources/icons/star_24x24.png\" style=\"height:22px;\"/></a></li>");
-		}
-	?>
+        if (isConnoisseur($uuid)) {
+            // Some visual indicator that the user is a connoisseur, and a tab containing the tombstone approval code
+            echo '<li><a href="#con"><img src="resources/icons/star_24x24.png" style="height:22px;"/></a></li>';
+        }
+?>
 	</ul>
 
 	<div id="allactivity"> 
 		<?php
-			// Display the event feed.  TODO: make the event feed a little more usable, e.g., by loading
-			// older events when the user scrolls to the bottom of the page.  Right now, there's no obvious
-			// way for players to see what happened before the past 40 events.   	
-			$query = $dbh->prepare( "SELECT * FROM events ORDER BY date DESC LIMIT 40" );
-			$query->execute( );
-			while( $row = $query->fetch( ) ) {
-				// displayEvent: convenience function (functions.php) that generates the HTML.  
-				echo displayEvent( $row, $CONTEXT_EVENT_FEED );	
-			}
-		?>
+        // Display the event feed.  TODO: make the event feed a little more usable, e.g., by loading
+        // older events when the user scrolls to the bottom of the page.  Right now, there's no obvious
+        // way for players to see what happened before the past 40 events.
+        $query = $dbh->prepare('SELECT * FROM events ORDER BY date DESC LIMIT 40');
+$query->execute();
+while ($row = $query->fetch()) {
+    // displayEvent: convenience function (functions.php) that generates the HTML.
+    echo displayEvent($row, $CONTEXT_EVENT_FEED);
+}
+?>
 	</div>
 
 	<?php
-		// If the user has Connoisseur status, print the div (tab) that allows them to approve 
-		// submitted tombstones.  The logic here is basically the same as the supervisor's page
-		// (supervisor/index.php).  
-		if ( isConnoisseur( $uuid ) ) {
-			echo( "<div id=\"con\">" );
-			echo( "<h2>You're a Connoisseur!</h2>" );
-			echo( "You've earned the connoisseur badge!  As a reward for your excellent gameplay, " );
-			echo( "you can earn extra " . $CURRENCY_SYMBOL . " by approving other players' tombstones.  Check this " );
-			echo( "tab of your home screen to see what tombstones are available for validation. " );
+// If the user has Connoisseur status, print the div (tab) that allows them to approve
+// submitted tombstones.  The logic here is basically the same as the supervisor's page
+// (supervisor/index.php).
+if (isConnoisseur($uuid)) {
+    echo '<div id="con">';
+    echo "<h2>You're a Connoisseur!</h2>";
+    echo "You've earned the connoisseur badge!  As a reward for your excellent gameplay, ";
+    echo 'you can earn extra ' . $CURRENCY_SYMBOL . " by approving other players' tombstones.  Check this ";
+    echo 'tab of your home screen to see what tombstones are available for validation. ';
 
-			echo( "<table style=\"border:1px solid black;width:90%;\">" );
-			echo( "<tr><td class=\"header\">Collector</td><td class=\"header\">Work</td><td class=\"header\">Tombstone</td><td class=\"header\">Approve?</td></tr>" );
-              
-			// TODO the magic numbers for approval/rejection in various tables are really confusing.  
-			// 2 = pending approval, but how would anyone know?  Need to make these named constants before release. 
-			$stmt = $dbh->prepare( "SELECT * FROM tombstones WHERE approved = 2 AND uid_creator != ?" );
-			$stmt->bindParam( 1, $uuid );
-                	$stmt->execute( );
-                        
-                while ( $row = $stmt->fetch( ) ) {
-			// Create an ad hoc form for approving or rejecting tombstone
-                        echo( "<form id=\"" . $row['id'] . "-ts\"><input type=\"hidden\" name=\"mode\" value=\"ts\"/><input type=\"hidden\" name=\"tombstoneId\" value=\"" . $row['id'] . "\"/><input type=\"hidden\" name=\"player\" value=\"" . $row['uid_creator'] . "\"/><input type=\"hidden\" name=\"work\" value=\"" . $row['wid'] . "\"/><tr>\n" );
-                        echo( "<td style=\"vertical-align:top;\">" . getUsername( $row['uid_creator'] ) . "</td><td style=\"vertical-align:top;\"><a rel=\"shadowbox\" href=\"workinfo.php?wid=\"" . $row['wid'] . "&gameinstance=" . $gameinstance . "\"><img src=\"img.php?img=" . $row['wid'] . "\" style=\"width:75px;\"/></a></td>" );
-                        echo( "<td style=\"vertical-align:top;\">" . getTombstone( $row['wid'], false ) . "</td><td>" );
-                        echo( "<button format=\"" . $row['id'] ."-ts\"  class=\"challengeApprover\" formact=\"approve\">Yes</button>" );
-                        echo( "<button format=\"" . $row['id'] . "-ts\" class=\"challengeApprover\" formact=\"reject\"> No </button></td></tr></form>\n" );
-                }
+    echo '<table style="border:1px solid black;width:90%;">';
+    echo '<tr><td class="header">Collector</td><td class="header">Work</td><td class="header">Tombstone</td><td class="header">Approve?</td></tr>';
 
+    // TODO the magic numbers for approval/rejection in various tables are really confusing.
+    // 2 = pending approval, but how would anyone know?  Need to make these named constants before release.
+    $stmt = $dbh->prepare('SELECT * FROM tombstones WHERE approved = 2 AND uid_creator != ?');
+    $stmt->bindParam(1, $uuid);
+    $stmt->execute();
 
-        		echo( "</table>" );
-		
+    while ($row = $stmt->fetch()) {
+        // Create an ad hoc form for approving or rejecting tombstone
+        echo '<form id="' . $row['id'] . '-ts"><input type="hidden" name="mode" value="ts"/><input type="hidden" name="tombstoneId" value="' . $row['id'] . '"/><input type="hidden" name="player" value="' . $row['uid_creator'] . '"/><input type="hidden" name="work" value="' . $row['wid'] . "\"/><tr>\n";
+        echo '<td style="vertical-align:top;">' . getUsername($row['uid_creator']) . '</td><td style="vertical-align:top;"><a rel="shadowbox" href="workinfo.php?wid="' . $row['wid'] . '&gameinstance=' . $gameinstance . '"><img src="img.php?img=' . $row['wid'] . '" style="width:75px;"/></a></td>';
+        echo '<td style="vertical-align:top;">' . getTombstone($row['wid'], false) . '</td><td>';
+        echo '<button format="' . $row['id'] . '-ts"  class="challengeApprover" formact="approve">Yes</button>';
+        echo '<button format="' . $row['id'] . "-ts\" class=\"challengeApprover\" formact=\"reject\"> No </button></td></tr></form>\n";
+    }
 
-			echo( "</div>\n" );
-		}
-	?>
+    echo '</table>';
+
+    echo "</div>\n";
+}
+?>
 
 	<!-- Print the dashboard div.  There's some useful (?) functionality here, but it's really meant to
 	     be an extensible foundation for additional visualizations, market-at-a-glance charts, etc. -->	
@@ -261,21 +260,21 @@
 		<hr style="color:lightgray;background-color:lightgray;height:1px;width:80%;"/>
 		<p/>
 		<?php
-			// Get a list of all works this player has liked by clicking the heart icon (from userCollection.php);
-			// display them as images
-			$love = $dbh->prepare( "SELECT wid FROM likes WHERE uid = ?" );
-			$love->bindParam( 1, $uuid );
+        // Get a list of all works this player has liked by clicking the heart icon (from userCollection.php);
+        // display them as images
+        $love = $dbh->prepare('SELECT wid FROM likes WHERE uid = ?');
+$love->bindParam(1, $uuid);
 
-			$love->execute( );
+$love->execute();
 
-			while ( $loveRow = $love->fetch( ) ) {
-				echo( "<img src=\"img.php?img=" . $loveRow['wid'] . "\" style=\"width:100%;\"/><p/>\n" );
-			}
+while ($loveRow = $love->fetch()) {
+    echo '<img src="img.php?img=' . $loveRow['wid'] . "\" style=\"width:100%;\"/><p/>\n";
+}
 
-			if ( $love->rowCount( ) == 0 ) {
-				echo( "You haven't <img src=\"resources/icons/raster/gray_dark/heart_fill_16x14.png\" style=\"margin-top:6px;\" alt=\"love\"/>ed any works yet.<p/>");
-			}
-		?>	
+if ($love->rowCount() == 0) {
+    echo "You haven't <img src=\"resources/icons/raster/gray_dark/heart_fill_16x14.png\" style=\"margin-top:6px;\" alt=\"love\"/>ed any works yet.<p/>";
+}
+?>	
 		</div>	
 
 		<div id="vis">
@@ -286,7 +285,7 @@
 
 		<!-- handled in (document).ready() above. -->	
 		<select id="glanceSelector">
-			<option id="leaderboard" selected><?php echo $CURRENCY_SYMBOL;?> Leaderboard</option>
+			<option id="leaderboard" selected><?php echo $CURRENCY_SYMBOL; ?> Leaderboard</option>
 			<option id="volume">Trade volume</option>
 			<option id="mostlove">Most &#x2665;'d works</option>
 		</select>
@@ -301,7 +300,7 @@
 </div>
 </div>
 <?php
-        include('jewel.php');
+include 'jewel.php';
 ?>
 </body>
 </html>

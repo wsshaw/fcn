@@ -4,34 +4,35 @@
  * Basic navigation paths to other parts of the game, along with an at-a-glance
  * view of the player's current score.
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2012-08 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  */
+if (session_id() == '') {
+    session_start();
+}
 
-        if(session_id() == '') {
-                session_start();
-        }
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
 
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-	
-	ob_start( );
-		// These resources are almost certainly already included by the parent
-		// script, so use require to avoid unnecessary reload
-		require 'functions.php';
-		require 'db.php';
-	ob_end_clean( );
+ob_start();
+// These resources are almost certainly already included by the parent
+// script, so use require to avoid unnecessary reload
+require 'functions.php';
+require 'db.php';
+ob_end_clean();
 ?>     
 <div xmlns:xi="http://www.w3.org/2001/XInclude" id="topBar">
 <div class="topNavLeft">
 <span class="topNav">
 <a href="home.php" class="navHref"><img src="resources/icons/home_32x32.png" style="height:24px;"class="navBarIcon"/></a> | 
-<a href="userHome.php" class="navHref"><?php echo( $uname );?>'s Collection<?php
-        echo " (" . $CURRENCY_SYMBOL . getPoints( $uuid ) . ")";
+<a href="userHome.php" class="navHref"><?php echo $uname; ?>'s Collection<?php
+        echo ' (' . $CURRENCY_SYMBOL . getPoints($uuid) . ')';
 ?>
 </a></span>
 <span class="topNav">| <a href="collections.php" class="navHref">All Collections</a> | <a href="marketplace.php" class="navHref">Marketplace</a> |

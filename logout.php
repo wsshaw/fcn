@@ -1,17 +1,19 @@
 <?php
-	/**
-	 * Session logout and cleanup for Fantasy Collecting
-	 * 
-	 * Destroys the user session and cleans up session data when users log out
-	 * of the Fantasy Collecting game. Provides secure session termination.
-	 *
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 */
+/**
+ * Session logout and cleanup for Fantasy Collecting.
+ *
+ * Destroys the user session and cleans up session data when users log out
+ * of the Fantasy Collecting game. Provides secure session termination.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ */
 session_start();
 session_destroy();
 ?><html>

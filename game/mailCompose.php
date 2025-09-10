@@ -5,28 +5,29 @@
  * by mailProcessor.php and submitted via a textarea on mail.php. In other words, this form is
  * used only for starting new threads.
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2012-08 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
- */ 
+ */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
+$gameinstance = $_SESSION['gameinstance'];
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
 
-        $gameinstance = $_SESSION['gameinstance'];;
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
+ob_start();
+require 'functions.php';
+require 'db.php';
+ob_end_clean();
 
-        ob_start( );
-                require 'functions.php';
-		require 'db.php';
-        ob_end_clean( );
-
-        logVisit( $uuid, basename( __FILE__ ) );
+logVisit($uuid, basename(__FILE__));
 
 ?>
 <html>
@@ -65,14 +66,13 @@
 
 	var users = [
 <?php
-	// Generate the array of usernames.
-        $points = $dbh->prepare( "SELECT id,name FROM collectors WHERE id > -1" );
-        $points->execute( );
-        
-        while( $pval = $points->fetch( ) )
-        {
-                echo( "\"" . $pval['name'] . "\", " );
-        }
+    // Generate the array of usernames.
+        $points = $dbh->prepare('SELECT id,name FROM collectors WHERE id > -1');
+$points->execute();
+
+while ($pval = $points->fetch()) {
+    echo '"' . $pval['name'] . '", ';
+}
 ?>
 		""
 	];
@@ -82,7 +82,9 @@
 <form id="mailForm" action="mailProcessor.php" method="post">
 <div class="ui-widget">
 	<label for="address">To: </label><br/>
-	<input id="address" name="address" <?php if ( $isReply === "1" ) { echo " value=\"" . getUsername( $recip ) . "\"";  } ?> />
+	<input id="address" name="address" <?php if ($isReply === '1') {
+	    echo ' value="' . getUsername($recip) . '"';
+	} ?> />
 <p/>
 	<label for="string">Message: </label><br/>
 	<textarea id="string" name="string" style="width:600;height:240;">Type your message here...</textarea>

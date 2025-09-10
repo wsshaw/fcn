@@ -2,40 +2,41 @@
 /**
  * tombstoneProcessor.php: Simple form handler for tombstones (Artist name/lifespan, work title).
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2012-08 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  *
- * @param int $work (via POST): work id (primary key of works table)
- * @param string $artist (via POST): string containing the artist's name.
- * @param string $born (via POST): artist's year of birth (free form string)
- * @param string $died (via POST): artist's year of death (free form string)
- * @param string $wt (via POST): work title
- * @param string $wd (via POST): work date
+ * @param int    $work   (via POST): work id (primary key of works table)
+ * @param string $artist (via POST): string containing the artist's name
+ * @param string $born   (via POST): artist's year of birth (free form string)
+ * @param string $died   (via POST): artist's year of death (free form string)
+ * @param string $wt     (via POST): work title
+ * @param string $wd     (via POST): work date
  */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
+$work = $_POST['work'];
+$artist = $_POST['artist'];
+$born = $_POST['born'];
+$died = $_POST['died'];
+$wt = $_POST['wt'];
+$wd = $_POST['wd'];
 
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-	$work = $_POST['work'];
-	$artist = $_POST['artist'];
-	$born = $_POST['born'];
-	$died = $_POST['died'];
-	$wt = $_POST['wt'];
-	$wd = $_POST['wd'];
-        
-	ob_start( );                
-		require 'db.php';
-		require 'functions.php';        
-	ob_end_clean( );
-	
-        logVisit( $uuid, basename( __FILE__ ) );
+ob_start();
+require 'db.php';
+require 'functions.php';
+ob_end_clean();
+
+logVisit($uuid, basename(__FILE__));
 ?>
 <html>  
 <head>  
@@ -67,19 +68,19 @@
 </head>
 <body style="background-color:#fff">
 <?php
-	// Fairly simple logic here -- just insert the form values into the tombstones table.
-	$stmt = $dbh->prepare( "INSERT INTO tombstones( wid, uid_creator, artist, born, died, worktitle, workdate, approved ) VALUES( ?,?,?,?,?,?,?,2 )" );
-	$stmt->bindParam( 1, $work );
-	$stmt->bindParam( 2, $uuid );
-	$stmt->bindParam( 3,  $artist );
-	$stmt->bindParam( 4,  $born  );
-	$stmt->bindParam( 5,  $died );
-	$stmt->bindParam( 6,  $wt );
-	$stmt->bindParam( 7,  $wd );
-	$stmt->execute( );
+    // Fairly simple logic here -- just insert the form values into the tombstones table.
+    $stmt = $dbh->prepare('INSERT INTO tombstones( wid, uid_creator, artist, born, died, worktitle, workdate, approved ) VALUES( ?,?,?,?,?,?,?,2 )');
+$stmt->bindParam(1, $work);
+$stmt->bindParam(2, $uuid);
+$stmt->bindParam(3, $artist);
+$stmt->bindParam(4, $born);
+$stmt->bindParam(5, $died);
+$stmt->bindParam(6, $wt);
+$stmt->bindParam(7, $wd);
+$stmt->execute();
 ?>
 <h2>Tombstone Recorded</h2>
-You've added a tombstone to "<?php echo $_POST['wt'];?>".
+You've added a tombstone to "<?php echo $_POST['wt']; ?>".
 <p/>
 <button id="dismiss" onClick="window.parent.Shadowbox.close( );window.parent.location.href=window.parent.location.href;">Okay</button>
 </body>

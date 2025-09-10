@@ -1,33 +1,34 @@
 <?php
 
-	/** 
-	 * Bug report and feature request form for Fantasy Collecting
-	 * 
-	 * Provides form interface allowing users to submit bug reports and feature
-	 * requests from anywhere within the game. Form submissions are processed
-	 * by bugProcessor.php and stored in the bugs database table.
-	 *
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2012-10-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 */
+/**
+ * Bug report and feature request form for Fantasy Collecting.
+ *
+ * Provides form interface allowing users to submit bug reports and feature
+ * requests from anywhere within the game. Form submissions are processed
+ * by bugProcessor.php and stored in the bugs database table.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2012-10-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
 
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
+ob_start();
+require 'db.php';
+require 'functions.php';
+ob_end_clean();
 
-        ob_start( );
-		require 'db.php';
-                require 'functions.php';
-        ob_end_clean( );
-
-        logVisit( $uuid, basename( __FILE__ ) );
+logVisit($uuid, basename(__FILE__));
 
 ?>
 <html>

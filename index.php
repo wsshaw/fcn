@@ -1,19 +1,20 @@
 <?php
 /**
- * Main entry point and login form for Fantasy Collecting
- * 
+ * Main entry point and login form for Fantasy Collecting.
+ *
  * Displays the login interface for users to access the Fantasy Collecting game.
  * Includes jQuery UI components for enhanced user interface and integrates with
  * the Shadowbox.js library for modal dialog functionality.
  *
- * @package    FantasyCollecting
  * @author     William Shaw <william.shaw@duke.edu>
  * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version    0.2 (modernized)
+ *
  * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ *
  * @license    MIT
  */
-
 ?>
 <html>
 <head>
@@ -45,11 +46,10 @@
 
 $u_agent = $_SERVER['HTTP_USER_AGENT'];
 
-
 if (preg_match('/MSIE/i', $u_agent) && !preg_match('/Opera/i', $u_agent)) {
-				echo ("<h1>Unsupported Browser</h1>Sorry, Fantasy Collecting Network does not support Internet Explorer yet." );
-				echo ( "Please use Firefox, Chrome, Safari, Opera, or another standards-compliant browser.");
-				exit;
+    echo '<h1>Unsupported Browser</h1>Sorry, Fantasy Collecting Network does not support Internet Explorer yet.';
+    echo  'Please use Firefox, Chrome, Safari, Opera, or another standards-compliant browser.';
+    exit;
 }
 ?>
 <div style="width:600px;margin-left:auto;margin-right:auto;font-size:1.5em;">

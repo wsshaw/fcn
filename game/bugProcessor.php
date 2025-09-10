@@ -1,34 +1,35 @@
-<?php      
-	/**
-	 * Bug report submission processor for Fantasy Collecting
-	 * 
-	 * Handles form submissions from bug.php by inserting bug reports and
-	 * feature suggestions into the bugs database table. Provides simple
-	 * feedback collection mechanism for game improvement.
-	 *
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 * 
-	 * @param string $_POST['report'] The bug report or feature suggestion text
-	 */
+<?php
+/**
+ * Bug report submission processor for Fantasy Collecting.
+ *
+ * Handles form submissions from bug.php by inserting bug reports and
+ * feature suggestions into the bugs database table. Provides simple
+ * feedback collection mechanism for game improvement.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ *
+ * @param string $_POST['report'] The bug report or feature suggestion text
+ */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
+$uuid = $_SESSION['uuid'];
+$message = strip_tags($_POST['report']);
 
-        $uuid = $_SESSION['uuid'];
-	$message = strip_tags( $_POST['report'] );
+ob_start();
+require 'db.php';
+require 'functions.php';
+ob_end_clean();
 
-        ob_start( );
-		require 'db.php';
-		require 'functions.php';        
-	ob_end_clean( );
-
-        logVisit( $uuid, basename( __FILE__ ) );
+logVisit($uuid, basename(__FILE__));
 ?>
 <html>  
 <head>  
@@ -55,14 +56,14 @@
      WebKit. -->
 <body style="background-color:#fff">
 <?php
-	/** 
-	* Dump the data into bug_reports.  No need to wrangle $message, since bindParam() 
-	* handles protection against SQL injection etc.    
-	*/	
-	$stmt = $dbh->prepare( "INSERT INTO bug_reports(uid,text) VALUES( ?, ? )" );
-	$stmt->bindParam( 1, $uuid );
-	$stmt->bindParam( 2, $message );
-	$stmt->execute( );
+    /**
+     * Dump the data into bug_reports.  No need to wrangle $message, since bindParam()
+     * handles protection against SQL injection etc.
+     */
+    $stmt = $dbh->prepare('INSERT INTO bug_reports(uid,text) VALUES( ?, ? )');
+$stmt->bindParam(1, $uuid);
+$stmt->bindParam(2, $message);
+$stmt->execute();
 ?>
 <h2>Bug Reported</h2>
 Your bug report has been filed.  Thank you!

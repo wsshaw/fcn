@@ -1,31 +1,33 @@
 <?php
-	/**
-	 * Game supervisor administrative interface for Fantasy Collecting
-	 * 
-	 * Comprehensive administrative dashboard providing game supervisors with tools
-	 * to manage gameplay, communicate with players, promote/demote users, award
-	 * FCG currency, upload new artworks, and control various aspects of the game.
-	 * 
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 * @todo       Refactor for better code organization and maintainability
-	 */
+/**
+ * Game supervisor administrative interface for Fantasy Collecting.
+ *
+ * Comprehensive administrative dashboard providing game supervisors with tools
+ * to manage gameplay, communicate with players, promote/demote users, award
+ * FCG currency, upload new artworks, and control various aspects of the game.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2012-08-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ *
+ * @todo       Refactor for better code organization and maintainability
+ */
+ob_start();
+require '../functions.php';
+require '../db.php';
+ob_end_clean();
 
-        ob_start( );                
-		require '../functions.php';        
-		require '../db.php';
-	ob_end_clean( );
+global $gameGenie;
 
-	global $gameGenie;
-
-	$workCountQuery = $dbh->prepare( "SELECT COUNT(id) AS count FROM works" );
-	$workCountQuery->execute( );
-	$workCountFetch = $workCountQuery->fetch( );
-	$workCount = $workCountFetch['count'];	
+$workCountQuery = $dbh->prepare('SELECT COUNT(id) AS count FROM works');
+$workCountQuery->execute();
+$workCountFetch = $workCountQuery->fetch();
+$workCount = $workCountFetch['count'];
 
 ?>
 <html>
@@ -196,66 +198,65 @@ td.header { font: 1.1em; font-weight:bold; background:lightgray;  }
 <tr>
 <td valign="top">
 <b>Leaderboard (FCGs)</b>
-<?
-	$stmt = $dbh->prepare( "SELECT * FROM collectors WHERE id > 0 and id != ? ORDER BY points DESC" );
-	$stmt->bindParam( 0, $gameGenie );
-	$stmt->execute( );
+<?php
+    $stmt = $dbh->prepare('SELECT * FROM collectors WHERE id > 0 and id != ? ORDER BY points DESC');
+$stmt->bindParam(0, $gameGenie);
+$stmt->execute();
 
-	echo "<ol>\n";
-	while ( $row = $stmt->fetch( ) )
-	{
-		echo "<li>";
-		echo $row['name'] . ": ";
-		echo $row['points'];
-		echo "<br/>";
-		echo "</li>";
-	} 
-	echo "</ol>\n";
+echo "<ol>\n";
+while ($row = $stmt->fetch()) {
+    echo '<li>';
+    echo $row['name'] . ': ';
+    echo $row['points'];
+    echo '<br/>';
+    echo '</li>';
+}
+echo "</ol>\n";
 ?>
 </td>
 <td valign="top">
 <b>Login Count</b>
-<?
-	$stmt = $dbh->prepare( "select uid, collectors.name, collectors.email as email, count(*) as c from logins left join collectors on collectors.id=logins.uid where uid != ? group by uid order by c desc" );
-	$stmt->bindParam( 0, $gameGenie );
-	$stmt->execute( );
+<?php
+    $stmt = $dbh->prepare('select uid, collectors.name, collectors.email as email, count(*) as c from logins left join collectors on collectors.id=logins.uid where uid != ? group by uid order by c desc');
+$stmt->bindParam(0, $gameGenie);
+$stmt->execute();
 
-	echo "<ol>\n";
-	
-	while( $row = $stmt->fetch( ) ) {
-		echo( "<li>" );
-		echo( $row['name'] . " (" . $row['email'] . " - " . $row['c'] . ")</li>" );
-	}	
-	echo "</ol>\n";
+echo "<ol>\n";
+
+while ($row = $stmt->fetch()) {
+    echo '<li>';
+    echo $row['name'] . ' (' . $row['email'] . ' - ' . $row['c'] . ')</li>';
+}
+echo "</ol>\n";
 ?>
 </td><td valign="top">
 <b>Most Tombstones Accepted</b>
 <?php
-	$stmt = $dbh->prepare( "select uid_creator,collectors.name,count(*) as c from tombstones left join collectors on collectors.id = tombstones.uid_creator where uid_creator != ? group by uid_creator order by c desc" );
-	$stmt->bindParam( 0, $gameGenie );
-	$stmt->execute( );
+    $stmt = $dbh->prepare('select uid_creator,collectors.name,count(*) as c from tombstones left join collectors on collectors.id = tombstones.uid_creator where uid_creator != ? group by uid_creator order by c desc');
+$stmt->bindParam(0, $gameGenie);
+$stmt->execute();
 
-	echo( "<ol>\n" );
-	while( $row = $stmt->fetch( ) ) {
-		echo( "<li>" );
-		echo( $row['name'] . " (" . $row['c'] . ")</li>" );
-	}
-	echo( "</ol>\n" );
+echo "<ol>\n";
+while ($row = $stmt->fetch()) {
+    echo '<li>';
+    echo $row['name'] . ' (' . $row['c'] . ')</li>';
+}
+echo "</ol>\n";
 ?>
 </td>
 <td valign="top">
 <b>Most Descriptions Accepted</b>
 <?php
-        $stmt = $dbh->prepare( "select uid,collectors.name,count(*) as c from work_descriptions left join collectors on collectors.id = work_descriptions.uid where uid != ? group by uid order by c desc" );
-	$stmt->bindParam( 0, $gameGenie );
-        $stmt->execute( );
+        $stmt = $dbh->prepare('select uid,collectors.name,count(*) as c from work_descriptions left join collectors on collectors.id = work_descriptions.uid where uid != ? group by uid order by c desc');
+$stmt->bindParam(0, $gameGenie);
+$stmt->execute();
 
-        echo( "<ol>\n" );
-        while( $row = $stmt->fetch( ) ) {
-                echo( "<li>" );
-                echo( $row['name'] . " (" . $row['c'] . ")</li>" );
-        }
-        echo( "</ol>\n" );
+echo "<ol>\n";
+while ($row = $stmt->fetch()) {
+    echo '<li>';
+    echo $row['name'] . ' (' . $row['c'] . ')</li>';
+}
+echo "</ol>\n";
 ?>
 </td>
 
@@ -277,38 +278,35 @@ td.header { font: 1.1em; font-weight:bold; background:lightgray;  }
 <p/>
 
 <b>Currently Active Games</b><p/><ul>
-<?
-        $stmt = $dbh->prepare("SELECT * FROM games WHERE UNIX_TIMESTAMP( ended ) = 0" );
-        $stmt->execute();
-        while( $row = $stmt->fetch( ) )
-        {
-                $participants = "";
-                $gameParticipants = 0;
-                echo( "<li><a href=\"../gameview.php?id=\"" . $row['id'] . "\"><b>" . $row['name'] . "</b></a> supervised by " . $row['supervisor'] . "; started on " . $row['started'] . " <br/>" );
-                echo( "Participants: " );
-                $sstmt = $dbh->prepare( "SELECT collections.id,owner,gameinstance,collectors.name from collections inner join collectors on collectors.id = owner where gameinstance = ?" );
-                $sstmt->bindParam( 1, $row['id'] );
-                $sstmt->execute( );
-                while( $subrow = $sstmt->fetch( ) )
-                {
-                        $participants .= $subrow[ 'name' ] . ", ";
-                        ++$gameParticipants;
-                }
-                echo ( substr($participants,0,-2)  );
+<?php
+        $stmt = $dbh->prepare('SELECT * FROM games WHERE UNIX_TIMESTAMP( ended ) = 0');
+$stmt->execute();
+while ($row = $stmt->fetch()) {
+    $participants = '';
+    $gameParticipants = 0;
+    echo '<li><a href="../gameview.php?id="' . $row['id'] . '"><b>' . $row['name'] . '</b></a> supervised by ' . $row['supervisor'] . '; started on ' . $row['started'] . ' <br/>';
+    echo 'Participants: ';
+    $sstmt = $dbh->prepare('SELECT collections.id,owner,gameinstance,collectors.name from collections inner join collectors on collectors.id = owner where gameinstance = ?');
+    $sstmt->bindParam(1, $row['id']);
+    $sstmt->execute();
+    while ($subrow = $sstmt->fetch()) {
+        $participants .= $subrow['name'] . ', ';
+        ++$gameParticipants;
+    }
+    echo  substr($participants, 0, -2);
 
-                if ( $row['dist'] == 0 )
-                {
-                        $maxCollectionSize = floor( $workCount / $gameParticipants );
-                        echo "<form method=\"get\" action=\"distributor.php\">\n";
-                        echo "<input type=\"hidden\" name=\"gameid\" value=\"" . $row['id'] . "\"/>\n";
-                        echo "<p/>Initial collection size: <input type=\"text\" size=\"2\" name=\"colsize\"/>\n (cannot exceed " . $maxCollectionSize . ")\n";
-                        echo "<input type=\"hidden\" name=\"maxsize\" value=\"" . $maxCollectionSize . "\"/>\n";
-                        echo "<input type=\"submit\" value=\"Distribute initial collections\" />\n";
-                        echo "</form>\n";
-                }
-        }
+    if ($row['dist'] == 0) {
+        $maxCollectionSize = floor($workCount / $gameParticipants);
+        echo "<form method=\"get\" action=\"distributor.php\">\n";
+        echo '<input type="hidden" name="gameid" value="' . $row['id'] . "\"/>\n";
+        echo "<p/>Initial collection size: <input type=\"text\" size=\"2\" name=\"colsize\"/>\n (cannot exceed " . $maxCollectionSize . ")\n";
+        echo '<input type="hidden" name="maxsize" value="' . $maxCollectionSize . "\"/>\n";
+        echo "<input type=\"submit\" value=\"Distribute initial collections\" />\n";
+        echo "</form>\n";
+    }
+}
 
-        echo "</li>\n";
+echo "</li>\n";
 
 ?>
 
@@ -340,37 +338,35 @@ But this functionality isn't active for the trial game.
 <table style="border:1px solid black;width:90%;">
 <tr><td class="header">Collector</td><td class="header">Work</td><td class="header">Tombstone</td><td class="header">Approve?</td></tr>
 	<?php
-		$stmt = $dbh->prepare( "SELECT * FROM tombstones WHERE approved = 2" );
-		$stmt->execute( );
+        $stmt = $dbh->prepare('SELECT * FROM tombstones WHERE approved = 2');
+$stmt->execute();
 
-		while ( $row = $stmt->fetch( ) ) {
-			echo( "<form id=\"" . $row['id'] . "-ts\"><input type=\"hidden\" name=\"mode\" value=\"ts\"/><input type=\"hidden\" name=\"tombstoneId\" value=\"" . $row['id'] . "\"/><input type=\"hidden\" name=\"player\" value=\"" . $row['uid_creator'] . "\"/><input type=\"hidden\" name=\"work\" value=\"" . $row['wid'] . "\"/><tr>\n" );
-			echo( "<td style=\"vertical-align:top;\">" . getUsername( $row['uid_creator'] ) . "</td><td style=\"vertical-align:top;\"><a href=\"javascript:alert('" . $row['wid'] . "');\"><img src=\"../img.php?img=" . $row['wid'] . "\&mode=thumb\" style=\"width:75px;\"/></a></td>" );
-			echo( "<td style=\"vertical-align:top;\">" . getTombstone( $row['wid'], false ) . "</td><td>" );
-			echo( "<button format=\"" . $row['id'] ."-ts\"  class=\"challengeApprover\" formact=\"approve\">Yes</button>" );
-			echo( "<button format=\"" . $row['id'] . "-ts\" class=\"challengeApprover\" formact=\"reject\"> No </button></td></tr></form>\n" );
-		}
+while ($row = $stmt->fetch()) {
+    echo '<form id="' . $row['id'] . '-ts"><input type="hidden" name="mode" value="ts"/><input type="hidden" name="tombstoneId" value="' . $row['id'] . '"/><input type="hidden" name="player" value="' . $row['uid_creator'] . '"/><input type="hidden" name="work" value="' . $row['wid'] . "\"/><tr>\n";
+    echo '<td style="vertical-align:top;">' . getUsername($row['uid_creator']) . "</td><td style=\"vertical-align:top;\"><a href=\"javascript:alert('" . $row['wid'] . "');\"><img src=\"../img.php?img=" . $row['wid'] . "\&mode=thumb\" style=\"width:75px;\"/></a></td>";
+    echo '<td style="vertical-align:top;">' . getTombstone($row['wid'], false) . '</td><td>';
+    echo '<button format="' . $row['id'] . '-ts"  class="challengeApprover" formact="approve">Yes</button>';
+    echo '<button format="' . $row['id'] . "-ts\" class=\"challengeApprover\" formact=\"reject\"> No </button></td></tr></form>\n";
+}
 
-
-	?>
+?>
 	</table>
 
 <h4>Descriptions</h4>
 <table style="border:1px solid black;width:90%;">
 <tr><td class="header">Collector</td><td class="header">Work</td><td class="header">Description</td><td style="min-width:130px;" class="header">Approve?</td></tr>
         <?php
-                $stmt = $dbh->prepare( "SELECT * FROM work_descriptions WHERE approved = 2" );
-                $stmt->execute( );
+            $stmt = $dbh->prepare('SELECT * FROM work_descriptions WHERE approved = 2');
+$stmt->execute();
 
-                while ( $row = $stmt->fetch( ) ) {
-                        echo( "<form id=\"" . $row['id'] . "-d\"><input type=\"hidden\" name=\"mode\" value=\"d\"/><input type=\"hidden\" name=\"tombstoneId\" value=\"" . $row['id'] . "\"/><input type=\"hidden\" name=\"player\" value=\"" . $row['uid'] . "\"/><input type=\"hidden\" name=\"work\" value=\"" . $row['work'] . "\"/>\n" );
-                        echo( "<tr><td style=\"vertical-align:top;\">" . getUsername( $row['uid'] ) . "</td><td><img src=\"../img.php?img=" . $row['work'] . "\" style=\"width:75px;\"/></td>" );
-                        echo( "<td style=\"vertical-align:top;\">" . getDescription( $row['work'] ) . "</td><td>" );
-			echo( "<button format=\"" . $row['id'] . "-d\" class=\"challengeApprover\" formact=\"approve\">Yes</button>" );
-			echo( "<button format=\"" . $row['id'] . "-d\" class=\"challengeApprover\" formact=\"reject\">No</button></td></tr></form>\n" );
-
-                }
-        ?>
+while ($row = $stmt->fetch()) {
+    echo '<form id="' . $row['id'] . '-d"><input type="hidden" name="mode" value="d"/><input type="hidden" name="tombstoneId" value="' . $row['id'] . '"/><input type="hidden" name="player" value="' . $row['uid'] . '"/><input type="hidden" name="work" value="' . $row['work'] . "\"/>\n";
+    echo '<tr><td style="vertical-align:top;">' . getUsername($row['uid']) . '</td><td><img src="../img.php?img=' . $row['work'] . '" style="width:75px;"/></td>';
+    echo '<td style="vertical-align:top;">' . getDescription($row['work']) . '</td><td>';
+    echo '<button format="' . $row['id'] . '-d" class="challengeApprover" formact="approve">Yes</button>';
+    echo '<button format="' . $row['id'] . "-d\" class=\"challengeApprover\" formact=\"reject\">No</button></td></tr></form>\n";
+}
+?>
         </table>
 
 </div>
@@ -380,41 +376,39 @@ But this functionality isn't active for the trial game.
 <h3>Promote or Demote a Player</h3>
 Here, you may promote a player to Connoisseur status (or strip them of that status, as the case may be).  Enter a short message to appear
 in the player's notification feed.
-<?
-	$stmt = $dbh->prepare( "SELECT * FROM collectors WHERE id > -1 ORDER BY name ASC" );
-	$stmt->execute( );
+<?php
+    $stmt = $dbh->prepare('SELECT * FROM collectors WHERE id > -1 ORDER BY name ASC');
+$stmt->execute();
 
-	echo( "<form id=\"promotionForm\">" );
-        echo "<select name=\"collector\">\n";
-        while( $row = $stmt->fetch( ) )
-        {
-                echo( "<option value=\"" . $row['id'] . "\">" . $row['name'] . ( isConnoisseur( $row['id'] ) ? " (Connoisseur)" : "" ) . "</option>\n" );
-        }
-        echo "</select>\n";
-        echo "<br/><textarea style=\"width:400px;height:150px;\" name=\"desc\"></textarea>\n";
-        echo "</form>";
-        echo "<button class=\"promotionButton\">Change Player's Status</button>\n";
+echo '<form id="promotionForm">';
+echo "<select name=\"collector\">\n";
+while ($row = $stmt->fetch()) {
+    echo '<option value="' . $row['id'] . '">' . $row['name'] . (isConnoisseur($row['id']) ? ' (Connoisseur)' : '') . "</option>\n";
+}
+echo "</select>\n";
+echo "<br/><textarea style=\"width:400px;height:150px;\" name=\"desc\"></textarea>\n";
+echo '</form>';
+echo "<button class=\"promotionButton\">Change Player's Status</button>\n";
 ?>
 	<p/>
 <h3>Arbitrary &#8750;</h3>
 Select a player, specify an amount of &#8750; to grant or subtract, and enter a message.  Your message text will appear in the collector's notification feed. (Example: "You have been rewarded for your excellent work descriptions!" "You lose &#8750;50 for slacking off.")<p/>
-<?
-        $stmt = $dbh->prepare( "SELECT * FROM collectors WHERE id > -1 ORDER BY name ASC" );
-        $stmt->execute();
+<?php
+        $stmt = $dbh->prepare('SELECT * FROM collectors WHERE id > -1 ORDER BY name ASC');
+$stmt->execute();
 
-	echo "<form id=\"awardForm\">";
-	echo "<select name=\"collector\">\n";
-        while( $row = $stmt->fetch( ) )
-        {
-                echo( "<option value=\"" . $row['id'] . "\">" . $row['name'] . "</option>\n" );
-        }
-	echo( "<option value=\"-1\">All players</option>\n" );
-	echo "</select>\n";
-	echo $CURRENCY_SYMBOL . "<input type=\"text\" name=\"points\" size=\"6\"/>\n";
-		
-	echo "<br/><textarea style=\"width:400px;height:150px;\" name=\"desc\"></textarea>\n";
-	echo "</form>";
-	echo "<button class=\"awardButton\">Exercise Benevolence/Malice</button>\n";
+echo '<form id="awardForm">';
+echo "<select name=\"collector\">\n";
+while ($row = $stmt->fetch()) {
+    echo '<option value="' . $row['id'] . '">' . $row['name'] . "</option>\n";
+}
+echo "<option value=\"-1\">All players</option>\n";
+echo "</select>\n";
+echo $CURRENCY_SYMBOL . "<input type=\"text\" name=\"points\" size=\"6\"/>\n";
+
+echo "<br/><textarea style=\"width:400px;height:150px;\" name=\"desc\"></textarea>\n";
+echo '</form>';
+echo "<button class=\"awardButton\">Exercise Benevolence/Malice</button>\n";
 
 ?>
 
@@ -425,25 +419,26 @@ Select a player, specify an amount of &#8750; to grant or subtract, and enter a 
 <p/>
 <form method="post" action="endAuction.php" id="endAuc">
 <?php
-	$stmt = $dbh->prepare( "SELECT * FROM auctions WHERE pending=1" );
-	$stmt->execute( );
+    $stmt = $dbh->prepare('SELECT * FROM auctions WHERE pending=1');
+$stmt->execute();
 
-	while( $row = $stmt->fetch( ) ) {
-		echo "The current auction lot is:<p/><img src=\"../img.php?img=" . $row['wid'] . "\" style=\"width:200px;\"><p/>Offered by " . getUsername( $row['uid'] ) . ".";
-		echo "High bid: " . $CURRENCY_SYMBOL . getHighBidAmountForAuction( $row['id' ] ) . " (" . getHighBidderForAuction( $row['id' ] ) . ")"; 	}
+while ($row = $stmt->fetch()) {
+    echo 'The current auction lot is:<p/><img src="../img.php?img=' . $row['wid'] . '" style="width:200px;"><p/>Offered by ' . getUsername($row['uid']) . '.';
+    echo 'High bid: ' . $CURRENCY_SYMBOL . getHighBidAmountForAuction($row['id']) . ' (' . getHighBidderForAuction($row['id']) . ')';
+}
 
-		echo "<input type=\"hidden\" name=\"aid\" value=\"0\"/><button id=\"nextLot\">Next Lot</button>\n";
+echo "<input type=\"hidden\" name=\"aid\" value=\"0\"/><button id=\"nextLot\">Next Lot</button>\n";
 
 ?>
 </form>
 <p/>
 <h2>Upcoming Auction</h2>
 <?php
-	if ( isAuctionPending( ) ) {
-		echo( "An auction will be held at " . pendingAuctionDate( ) . "." );
-	} else {
-		echo( "There is no upcoming auction, but you can add one below." );
-	}
+    if (isAuctionPending()) {
+        echo 'An auction will be held at ' . pendingAuctionDate() . '.';
+    } else {
+        echo 'There is no upcoming auction, but you can add one below.';
+    }
 ?>
 <h2>Schedule an Auction</h2>
 After you schedule the auction, it will appear in the list of upcoming auctions above.  For now, it's possible to
@@ -473,13 +468,13 @@ You can use this form to send a message to all players.  It will appear in the e
 <h3>Bug Reports and Suggestions</h3>
 <?php
 
-	$stmt = $dbh->prepare( "SELECT * FROM bug_reports" );
-	$stmt->execute( );
-	echo ("<ul>\n");
-	while( $row = $stmt->fetch( ) ) {
-		echo( "<li><b>" . getUsername( $row['uid'] ) . " says:</b> " . stripslashes( $row['text'] ) . " (at " . $row['ts'] . ")" );
-	}
-	echo ( "</ul>\n" );
+    $stmt = $dbh->prepare('SELECT * FROM bug_reports');
+$stmt->execute();
+echo "<ul>\n";
+while ($row = $stmt->fetch()) {
+    echo '<li><b>' . getUsername($row['uid']) . ' says:</b> ' . stripslashes($row['text']) . ' (at ' . $row['ts'] . ')';
+}
+echo  "</ul>\n";
 ?>
 </div>
 
@@ -511,15 +506,14 @@ in this format:
 <b>Recent Trades</b><p/>
 <table style="border:1px solid black;width:90%;">
 <tr><td class="header">Collector</td><td class="header">traded...</td><td class="header">...to...</td><td class="header">for:</td><td class="header">Time of trade</td><td class="header">Status</td></tr>
-<?
-	$stmt = $dbh->prepare( "SELECT origin,destination,gameinstance,trades.date,work_from_origin,work_from_destination,c1.name AS origin_name,c2.name AS destination_name,w1.title AS work_offered,w2.title AS work_traded_for,accepted FROM trades LEFT OUTER JOIN works AS w1 ON w1.id = trades.work_from_origin LEFT OUTER JOIN works AS w2 ON w2.id = trades.work_from_destination LEFT OUTER JOIN collectors AS c1 ON c1.id = trades.origin LEFT OUTER JOIN collectors AS c2 ON c2.id = trades.destination ORDER BY trades.date DESC LIMIT 200" );
-	$stmt->execute( );
+<?php
+    $stmt = $dbh->prepare('SELECT origin,destination,gameinstance,trades.date,work_from_origin,work_from_destination,c1.name AS origin_name,c2.name AS destination_name,w1.title AS work_offered,w2.title AS work_traded_for,accepted FROM trades LEFT OUTER JOIN works AS w1 ON w1.id = trades.work_from_origin LEFT OUTER JOIN works AS w2 ON w2.id = trades.work_from_destination LEFT OUTER JOIN collectors AS c1 ON c1.id = trades.origin LEFT OUTER JOIN collectors AS c2 ON c2.id = trades.destination ORDER BY trades.date DESC LIMIT 200');
+$stmt->execute();
 
-	while( $row = $stmt->fetch( ) )
-	{
-		echo("<tr><td>" . $row['origin_name'] . "</td><td><img src=\"../img.php?img=" . $row['work_from_origin'] . "\" style=\"width:45px;\"/></td><td>" . $row['destination_name'] . "</td><td>" . ( $row['work_from_destination'] == -1 ? "(nothing)" : "<img src=\"../img.php?img=" . $row['work_from_destination' ] . "\" style=\"width:45px;\"/>" ) . "</td>");
-		echo("<td>" . $row['date'] . "</td><td>" . ( $row['accepted'] == 1 ? "accepted" : ( $row['accepted'] == -1 ? "pending" : ( $row['accepted'] == 2 ? "cancelled" : "rejected" ) ) ) . "</td></tr>\n" );
-	}
+while ($row = $stmt->fetch()) {
+    echo '<tr><td>' . $row['origin_name'] . '</td><td><img src="../img.php?img=' . $row['work_from_origin'] . '" style="width:45px;"/></td><td>' . $row['destination_name'] . '</td><td>' . ($row['work_from_destination'] == -1 ? '(nothing)' : '<img src="../img.php?img=' . $row['work_from_destination'] . '" style="width:45px;"/>') . '</td>';
+    echo '<td>' . $row['date'] . '</td><td>' . ($row['accepted'] == 1 ? 'accepted' : ($row['accepted'] == -1 ? 'pending' : ($row['accepted'] == 2 ? 'cancelled' : 'rejected'))) . "</td></tr>\n";
+}
 
 ?>
 </table>

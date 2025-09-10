@@ -2,52 +2,51 @@
 /**
  * promote.php: Helper that allows game admin to promote individual users to Connoisseur status.
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2006 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  *
- * @param int $collector (via GET): The player ID to promote
- * @param string $desc (via GET): Description message for the promotion
- * @param int $points (via GET): Points to award
+ * @param int    $collector (via GET): The player ID to promote
+ * @param string $desc      (via GET): Description message for the promotion
+ * @param int    $points    (via GET): Points to award
  */
+ob_start();
+require '../functions.php';
+require '../db.php';
+ob_end_clean();
 
-        ob_start( );                
-		require '../functions.php';        
-		require '../db.php';
-	ob_end_clean( );
+$player = $_GET['collector'];
+$message = $_GET['desc'];
+$points = $_GET['points'];
 
-	$player = $_GET['collector'];
-	$message = $_GET['desc'];
-	$points = $_GET['points'];
+createNotification($player, $E_ACHIEVEMENT, $message);
 
-	createNotification( $player, $E_ACHIEVEMENT, $message );
+$retVal = '';
 
-	$retVal = "";
+// FIXME: hard coded levels/magic #
+if (isConnoisseur($player)) {
+    $retVal = 'The player has been demoted.';
+    setLevel($player, 1);
+} else {
+    $retVal = 'Promotion complete!';
+    setLevel($player, 10);
+    $newsFeedMsg = '<div style="display:inline;padding-left:50px;float:left;padding-right:5px;padding-top:5px;padding-bottom:5px;">' . getUserName($player) . ' has earned the Connoisseur badge!  As a reward for excellent gameplay, ' . getUserName($player) . ' can now earn extra ' . $CURRENCY_SYMBOL . " by validating other players' tombstone entries.</div>";
+    $headline = getUserName($player) . ' is now a Connoisseur!';
 
-	// FIXME: hard coded levels/magic #	
-	if ( isConnoisseur( $player ) ) {
-		$retVal = "The player has been demoted.";
-		setLevel( $player, 1 );
-	} else {
-		$retVal = "Promotion complete!";
-		setLevel( $player, 10 );
-        	$newsFeedMsg = "<div style=\"display:inline;padding-left:50px;float:left;padding-right:5px;padding-top:5px;padding-bottom:5px;\">" . getUserName( $player ) . " has earned the Connoisseur badge!  As a reward for excellent gameplay, " . getUserName( $player ) . " can now earn extra " . $CURRENCY_SYMBOL . " by validating other players' tombstone entries.</div>";
-        	$headline = getUserName( $player ) . " is now a Connoisseur!";
-        
-        	$query = $dbh->prepare( "INSERT INTO events( type, target, description, headline ) VALUES( ?, ?, ?, ? )" );
-		$query->bindParam( 1, $E_ACHIEVEMENT );
-		$query->bindParam( 2, $player );
-		$query->bindParam( 3, $newsFeedMsg );
-		$query->bindParam( 4, $headline );
-		$query->execute( );
-	}
+    $query = $dbh->prepare('INSERT INTO events( type, target, description, headline ) VALUES( ?, ?, ?, ? )');
+    $query->bindParam(1, $E_ACHIEVEMENT);
+    $query->bindParam(2, $player);
+    $query->bindParam(3, $newsFeedMsg);
+    $query->bindParam(4, $headline);
+    $query->execute();
+}
 
-
-	echo( $retVal );
-
+echo $retVal;
 
 ?>
 

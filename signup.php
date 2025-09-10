@@ -1,19 +1,20 @@
 <?php
-	/**
-	* signup.php: Allow users to sign up for game accounts.  It's a simple form that collects the basic data--
-	* username, password, email--and passes it to signupProcessor.php.  Validation occurs via some functions in 
-	* game/functions.php. 
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @date 11/2012
-	*/
+/**
+ * signup.php: Allow users to sign up for game accounts.  It's a simple form that collects the basic data--
+ * username, password, email--and passes it to signupProcessor.php.  Validation occurs via some functions in
+ * game/functions.php.
+ *
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
+ *
+ * @date 11/2012
+ */
 
-	require_once 'game/db.php';
+require_once 'game/db.php';
 
-        ob_start( );
-                require 'game/functions.php';
-        ob_end_clean( );
+ob_start();
+require 'game/functions.php';
+ob_end_clean();
 ?>
 <html>
 <head>

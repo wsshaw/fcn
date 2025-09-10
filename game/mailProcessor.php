@@ -1,39 +1,40 @@
-<?php     
-	/**
-	 * Message delivery processor for Fantasy Collecting mail system
-	 * 
-	 * Processes mail form submissions and delivers messages to intended recipients.
-	 * Handles dual calling modes: AJAX requests from response forms in mail.php
-	 * and standard POST requests from mailCompose.php. Generates appropriate
-	 * output for standard POST requests.
-	 *
-	 * @package    FantasyCollecting
-	 * @author     William Shaw <william.shaw@duke.edu>
-	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
-	 * @version    0.2 (modernized)
-	 * @since      2012-05-01 (original), 2025-09-10 (modernized)
-	 * @license    MIT
-	 * 
-	 * @param string $_POST['string']  The message body content
-	 * @param string $_POST['address'] The recipient username
-	 */ 
+<?php
+/**
+ * Message delivery processor for Fantasy Collecting mail system.
+ *
+ * Processes mail form submissions and delivers messages to intended recipients.
+ * Handles dual calling modes: AJAX requests from response forms in mail.php
+ * and standard POST requests from mailCompose.php. Generates appropriate
+ * output for standard POST requests.
+ *
+ * @author     William Shaw <william.shaw@duke.edu>
+ * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
+ * @version    0.2 (modernized)
+ *
+ * @since      2012-05-01 (original), 2025-09-10 (modernized)
+ *
+ * @license    MIT
+ *
+ * @param string $_POST['string']  The message body content
+ * @param string $_POST['address'] The recipient username
+ */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
-        
-        $gameinstance = $_SESSION['gameinstance'];
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-	$recipient = $_POST['address'];
-	$message = strip_tags( $_POST['string'] );
+$gameinstance = $_SESSION['gameinstance'];
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
+$recipient = $_POST['address'];
+$message = strip_tags($_POST['string']);
 
-        ob_start( );
-		require 'functions.php';        
-		require 'db.php';
-	ob_end_clean( );
+ob_start();
+require 'functions.php';
+require 'db.php';
+ob_end_clean();
 
-        logVisit( $uuid, basename( __FILE__ ) );
+logVisit($uuid, basename(__FILE__));
 ?>
 <html>  
 <head>  
@@ -58,20 +59,20 @@
 </head>
 <body style="background-color:#fff">
 <?php
-	$recipientUid = getUserId( $recipient );
+    $recipientUid = getUserId($recipient);
 
-	$stmt = $dbh->prepare( "INSERT INTO msgs(uidf,uidt,gid,string,rr) VALUES( ?, ?, ?, ?, ? )" );
-	$stmt->bindParam( 1, $uuid );
-	$stmt->bindParam( 2, $recipientUid );
-	$stmt->bindParam( 3, $gameinstance );
-	$stmt->bindParam( 4, $message );
-	$stmt->bindValue( 5, 0 );	// read receipt -- not implemented
+$stmt = $dbh->prepare('INSERT INTO msgs(uidf,uidt,gid,string,rr) VALUES( ?, ?, ?, ?, ? )');
+$stmt->bindParam(1, $uuid);
+$stmt->bindParam(2, $recipientUid);
+$stmt->bindParam(3, $gameinstance);
+$stmt->bindParam(4, $message);
+$stmt->bindValue(5, 0);	// read receipt -- not implemented
 
-	$stmt->execute( );
+$stmt->execute();
 
-	// Notify the recipient
-	$mailNotification = "<a href=\"" . $FCN_ROOT . "mail.php\">" . getUsername( $uuid ) . " sent you a message.</a>";
-	createNotification( $recipientUid, $E_MESSAGE_RECEIVED, $mailNotification );
+// Notify the recipient
+$mailNotification = '<a href="' . $FCN_ROOT . 'mail.php">' . getUsername($uuid) . ' sent you a message.</a>';
+createNotification($recipientUid, $E_MESSAGE_RECEIVED, $mailNotification);
 ?>
 <h1>Message delivered</h1>
 <button id="dismiss">Okay</button>

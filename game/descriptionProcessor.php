@@ -3,35 +3,36 @@
  * descriptionProcessor.php: Form processor for submitting descriptions. Called only from addDescription (the form
  * that also edits existing descriptions of works).
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2012-08 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  *
- * @param int $work (via POST) - work ID in question.
- * @param string $desc (via POST) - text description of the work, its provenance, significance, etc.
- * @param string $mode (via POST) - either "new" (entirely new description) or "edit" (change existing).
+ * @param int    $work (via POST) - work ID in question
+ * @param string $desc (via POST) - text description of the work, its provenance, significance, etc
+ * @param string $mode (via POST) - either "new" (entirely new description) or "edit" (change existing)
  */
+if (session_id() == '') {
+    session_start();
+}
 
-	if(session_id() == '') {
-        	session_start();
-	}
-        
-	$gameinstance = $_SESSION['gameinstance'];
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-	$work = $_POST['work'];
-	$desc = $_POST['desc'];
-	$mode = $_POST['mode'];
+$gameinstance = $_SESSION['gameinstance'];
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
+$work = $_POST['work'];
+$desc = $_POST['desc'];
+$mode = $_POST['mode'];
 
-        ob_start( );
-		require 'functions.php';        
-		require 'db.php';
-	ob_end_clean( );
-	
-        logVisit( $uuid, basename( __FILE__ ) );
+ob_start();
+require 'functions.php';
+require 'db.php';
+ob_end_clean();
+
+logVisit($uuid, basename(__FILE__));
 
 ?>
 <html>  
@@ -66,23 +67,22 @@
 </head>
 <body style="background-color:#fff">
 <?php
-	if ( $mode === "new" ) 
-	{
-		// New description: just insert into work_descriptions table.  Again, bindParam() handles input cleaning.
-		$stmt = $dbh->prepare( "INSERT INTO work_descriptions( uid, text, work, approved ) VALUES( ?,?,?,2 )");
-		$stmt->bindParam( 1, $uuid);
-		$stmt->bindParam( 2, $desc);
-		$stmt->bindParam( 3, $work );
-		$stmt->execute( );
-	} else {
-		// If not new, then must be update.  We should really keep revisions on record: possible FIXME?
-		// Reset approved status to 2 (pending approval).  
-		$stmt = $dbh->prepare( "UPDATE work_descriptions SET uid =?, text =?, approved=2 WHERE work = ?");
-                $stmt->bindParam( 1, $uuid);
-                $stmt->bindParam( 2, $desc );
-                $stmt->bindParam( 3, $work );
-                $stmt->execute( );	
-	}
+    if ($mode === 'new') {
+        // New description: just insert into work_descriptions table.  Again, bindParam() handles input cleaning.
+        $stmt = $dbh->prepare('INSERT INTO work_descriptions( uid, text, work, approved ) VALUES( ?,?,?,2 )');
+        $stmt->bindParam(1, $uuid);
+        $stmt->bindParam(2, $desc);
+        $stmt->bindParam(3, $work);
+        $stmt->execute();
+    } else {
+        // If not new, then must be update.  We should really keep revisions on record: possible FIXME?
+        // Reset approved status to 2 (pending approval).
+        $stmt = $dbh->prepare('UPDATE work_descriptions SET uid =?, text =?, approved=2 WHERE work = ?');
+        $stmt->bindParam(1, $uuid);
+        $stmt->bindParam(2, $desc);
+        $stmt->bindParam(3, $work);
+        $stmt->execute();
+    }
 ?>
 <h2>Description Updated</h2>
 You've updated the description for this work.  It has been submitted for approval.  

@@ -4,26 +4,27 @@
  * script actually allows users to create an auction listing. It's a form called from marketplace.php
  * and processed by postClassified.php.
  *
- * @package FantasyCollecting
  * @author William Shaw <william.shaw@duke.edu>
  * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ *
  * @version 0.2 (modernized)
+ *
  * @since 2013-02 (original), 2025-09-10 (modernized)
+ *
  * @license MIT
  */
-
-if(session_id() == '') {
-        session_start();
+if (session_id() == '') {
+    session_start();
 }
-        $gameinstance = $_SESSION['gameinstance'];
-        $uname = $_SESSION['uname'];
-        $uuid = $_SESSION['uuid'];
-        ob_start( ); 
-		require 'db.php';
-		require 'functions.php';        
-	ob_end_clean( );
-	global $gameGenie;
-        logVisit( $uuid, basename( __FILE__ ) );
+$gameinstance = $_SESSION['gameinstance'];
+$uname = $_SESSION['uname'];
+$uuid = $_SESSION['uuid'];
+ob_start();
+require 'db.php';
+require 'functions.php';
+ob_end_clean();
+global $gameGenie;
+logVisit($uuid, basename(__FILE__));
 ?>
 <html>
 <head>
@@ -84,20 +85,19 @@ if(session_id() == '') {
 <h2>Select work to offer:</h2>
 <div id="workselector">
 <?php
-	// Select the user's collection and display its images as a series of list items; that's how
-	// jQuery UI selectable likes its elements.  
-	$userTable = $uuid . "_" . $gameinstance . "_coll";
-	$query = $dbh->prepare( "SELECT work,w1.id AS url FROM " . $userTable . " LEFT OUTER JOIN works AS w1 ON w1.id = " . $userTable . ".work" );
-	$query->execute( );
+    // Select the user's collection and display its images as a series of list items; that's how
+    // jQuery UI selectable likes its elements.
+    $userTable = $uuid . '_' . $gameinstance . '_coll';
+$query = $dbh->prepare('SELECT work,w1.id AS url FROM ' . $userTable . ' LEFT OUTER JOIN works AS w1 ON w1.id = ' . $userTable . '.work');
+$query->execute();
 
-	echo( "<ol id=\"selectable\">\n" );
-	
-	while( $item = $query->fetch( ) )
-	{
-		echo( "<li class=\"ui-widget-content\" id=\"" . $item['work'] . "\"><img src=\"img.php?img=" . $item['url'] .  ( $uuid == $gameGenie ? "&mode=thumb" : "" ) . "\" width=\"80\" alt=\"[img]\" valign=\"bottom\" style=\"border:0px;display:inline;float:left;\"/></li>\n" );
-	}
-		
-	echo( "</ol>\n" );
+echo "<ol id=\"selectable\">\n";
+
+while ($item = $query->fetch()) {
+    echo '<li class="ui-widget-content" id="' . $item['work'] . '"><img src="img.php?img=' . $item['url'] . ($uuid == $gameGenie ? '&mode=thumb' : '') . "\" width=\"80\" alt=\"[img]\" valign=\"bottom\" style=\"border:0px;display:inline;float:left;\"/></li>\n";
+}
+
+echo "</ol>\n";
 ?>
 </div>
 <h2>Enter a start price:</h2>
