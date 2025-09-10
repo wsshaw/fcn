@@ -1,20 +1,23 @@
-<?
+<?php
 	/**
-	* bidPlace.php: form processor for bids placed in an auction.  Called from form(s) on marketplace.php.
-	*  The output of this script is displayed in a shadowbox dialog on marketplace.php after a bid is submitted.
-	*
-	* @param aid (via POST): The id # of this auction.  Corresponds to primary key of auctions table.
-	* @param amountOutright (via POST): the 'buy it now' amount of this auction.  Passed from the amountOutright
-	*    field in the corresponding auction form on the marketplace page.
-	* @param amount (via POST): bid amount if we're not using buy it now.  Passed from the amount field in the
-	*    corresponding auction form on the marketplace page.
-	* @param mode (via POST): Deprecated.  Allowed users to place absentee bids (mode="absentee") in the old
-	*    auction system.  Preserved here in case anyone wants to go back to "live" auctions.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 2/2013
-	*/
+	 * Auction bid processing handler for Fantasy Collecting
+	 * 
+	 * Processes auction bid submissions from marketplace.php forms. Handles both
+	 * regular bids and "Buy It Now" purchases. Output is displayed in a shadowbox
+	 * dialog on the marketplace page after bid submission.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2013-02-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param int   $_POST['aid']            The auction ID (auctions table primary key)
+	 * @param float $_POST['amountOutright'] The "Buy It Now" amount for immediate purchase
+	 * @param float $_POST['amount']         Regular bid amount (if not using Buy It Now)
+	 * @param string $_POST['mode']          Deprecated absentee bid mode (preserved for compatibility)
+	 */
 	if(session_id() == '') {
         	session_start();
 	}

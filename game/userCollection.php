@@ -1,12 +1,17 @@
-<?php                   
-        /**
-        * userCollection.php: Display one user's collection as a grid of images linked to workview.php.
-	* Includes a button linking to trader.php (allows users to propose trades with one another). 
-        *
-        * @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-        * @version 0.1, 8/2012
-        */
+<?php
+/**
+ * userCollection.php: Display one user's collection as a grid of images linked to workview.php.
+ * Includes a button linking to trader.php (allows users to propose trades with one another).
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $uid (via GET): User ID to display collection for
+ */
 
 	if(session_id() == '') {
         	session_start();

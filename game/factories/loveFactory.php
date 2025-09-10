@@ -1,14 +1,17 @@
 <?php
-        /**     
-        * loveFactory.php: generate the overlay image that shows whether a player has loved a work.
-	* Called via sentiment.js on userCollection.php.
-	* 
-        * @author William Shaw <william.shaw@duke.edu> 
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-        * @version 0.1, 1/2013
-	*
-	* @param wid The work id in question.
-        */      
+/**
+ * loveFactory.php: generate the overlay image that shows whether a player has loved a work.
+ * Called via sentiment.js on userCollection.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $wid (via GET): The work id in question.
+ */      
 
         if(session_id() == '') {
                 session_start();

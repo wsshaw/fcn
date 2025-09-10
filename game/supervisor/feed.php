@@ -1,7 +1,14 @@
 <?php
-	/**
-	* feed.php: utility script to display an abbreviated newsfeed on the supervisor page.
-	*/
+/**
+ * feed.php: utility script to display an abbreviated newsfeed on the supervisor page.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2006 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
         ob_start( );
 		require '../db.php';
                 require '../functions.php';

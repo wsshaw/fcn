@@ -1,14 +1,20 @@
 <?php
 	/**
-	* addTombstone.php: form allowing players to add a tombstone (Artist name and lifespan) to
-	* works in their collection.  The input given here is processed by tombstoneProcessor.php.  
-	*
-	* @param w (via GET): work ID we're editing.  Corresponds with primary key of works table.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+	 * Artwork tombstone creation form for Fantasy Collecting
+	 * 
+	 * Provides form interface allowing players to add tombstone information
+	 * (artist name and lifespan) to artworks in their collection. Form data
+	 * is processed by tombstoneProcessor.php to update artwork metadata.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param int $_GET['w'] The artwork ID to edit (works table primary key)
+	 */
 
 	if(session_id() == '') {
         	session_start();

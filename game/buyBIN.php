@@ -1,17 +1,20 @@
-<?
-	/**
-	* buyBIN.php: Place a 'buy it now' bid for an auction.  This should probably be folded into
-	* bidPlace.php.  Output from this script is displayed in a shadowbox on the marketplace page.
-	*
-	* @param aid (via POST): Auction ID.  Corresponds to the primary key of the auctions table.
-	*   passed from marketplace.php.
-	* @param amount (via POST): the amount.  Passed from marketplace.php, but why do we need it?
-	*   this value is already in the auctions table, right? 
-	* 
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 1/2013
-	*/
+<?php
+/**
+ * buyBIN.php: Place a 'buy it now' bid for an auction. This should probably be folded into
+ * bidPlace.php. Output from this script is displayed in a shadowbox on the marketplace page.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $aid (via POST): Auction ID. Corresponds to the primary key of the auctions table.
+ *   passed from marketplace.php.
+ * @param float $amount (via POST): the amount. Passed from marketplace.php, but why do we need it?
+ *   this value is already in the auctions table, right?
+ */
 
 	if(session_id() == '') {
 	        session_start();

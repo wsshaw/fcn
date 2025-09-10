@@ -1,15 +1,18 @@
-<?
-	/**
-	* stream.php: Given an epoch timestamp, get notifications targeted to a specific player (or the entire
-	* game) and print them out in a <div> suitable for div#notification in jewel.php.  Called via JavaScript
-	* polling in jewel.php.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 8/2012
-	*
-	* @param jlt (via GET): Last jewel load time.  Passed from jewel.php.
-	*/
+<?php
+/**
+ * stream.php: Given an epoch timestamp, get notifications targeted to a specific player (or the entire
+ * game) and print them out in a <div> suitable for div#notification in jewel.php. Called via JavaScript
+ * polling in jewel.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $jlt (via GET): Last jewel load time. Passed from jewel.php.
+ */
 
 	if(session_id() == '') {
         	session_start();

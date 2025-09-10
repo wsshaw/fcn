@@ -1,13 +1,18 @@
 <?php
 /**
- * upload.php
+ * uploader-new.php
  *
- * Copyright 2009, Moxiecode Systems AB
- * Modifications for Fantasy Collecting written 2013-FEB by William Shaw <william.shaw@duke.edu>.
+ * File upload handler for Fantasy Collecting.
+ * Based on Plupload library with modifications for Fantasy Collecting.
  *
- * Released under GPL License.
+ * @package FantasyCollecting
+ * @author Moxiecode Systems AB (original), William Shaw (modifications)
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2009 (original), 2013 (FCN modifications), 2025-09-10 (modernized)
+ * @license GPL
  *
- * License: http://www.plupload.com/license
+ * Original Plupload license: http://www.plupload.com/license
  * Contributing: http://www.plupload.com/contributing
  */
 

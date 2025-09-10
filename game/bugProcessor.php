@@ -1,14 +1,20 @@
-<?      
+<?php      
 	/**
-	* bugProcessor.php: Form handler for bug.php.  Simply insert bug report/suggestion into the
-	* bugs table.
-	*
-	* @param report (via POST): The text of the bug report or suggestion. 
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+	 * Bug report submission processor for Fantasy Collecting
+	 * 
+	 * Handles form submissions from bug.php by inserting bug reports and
+	 * feature suggestions into the bugs database table. Provides simple
+	 * feedback collection mechanism for game improvement.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param string $_POST['report'] The bug report or feature suggestion text
+	 */
 
 	if(session_id() == '') {
         	session_start();

@@ -1,13 +1,16 @@
-<?php   
-	/**
-	* createClassified.php: Despite the name (an artifact of when classified ads were part of FCN), this
-	* script actually allows users to create an auction listing.  It's a form called from marketplace.php
-	* and processed by postClassified.php.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 2/2013
-	*/
+<?php
+/**
+ * createClassified.php: Despite the name (an artifact of when classified ads were part of FCN), this
+ * script actually allows users to create an auction listing. It's a form called from marketplace.php
+ * and processed by postClassified.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-02 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
 if(session_id() == '') {
         session_start();

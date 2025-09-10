@@ -1,11 +1,14 @@
 <?php
-	/**
-        * mostLoveFactory.php: generate the list of most loved works for display on the dashboard (home.php). 
-        * 
-        * @author William Shaw <william.shaw@duke.edu> 
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-        * @version 0.1, 1/2013
-        */      
+/**
+ * mostLoveFactory.php: generate the list of most loved works for display on the dashboard (home.php).
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */      
 
         if(session_id() == '') {
                 session_start();

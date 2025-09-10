@@ -1,7 +1,18 @@
 <?php
-	/**
-	* promote.php: Helper that allows game admin to promote individual users to Connoisseur status.
-	*/
+/**
+ * promote.php: Helper that allows game admin to promote individual users to Connoisseur status.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2006 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $collector (via GET): The player ID to promote
+ * @param string $desc (via GET): Description message for the promotion
+ * @param int $points (via GET): Points to award
+ */
 
         ob_start( );                
 		require '../functions.php';        

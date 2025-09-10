@@ -1,18 +1,21 @@
-<?      
-	/**
-	* tombstoneProcessor.php: Simple form handler for tombstones (Artist name/lifespan, work title).
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	* 
-	* @param work (via POST): work id (primary key of works table)
-	* @param artist (via POST): string containing the artist's name.
-	* @param born (via POST): artist's year of birth (free form string)
-	* @param died (via POST): artist's year of death (free form string)
-	* @param wt (Via POST): work title 
-	* @param wd (via POST): work date
-	*/
+<?php
+/**
+ * tombstoneProcessor.php: Simple form handler for tombstones (Artist name/lifespan, work title).
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $work (via POST): work id (primary key of works table)
+ * @param string $artist (via POST): string containing the artist's name.
+ * @param string $born (via POST): artist's year of birth (free form string)
+ * @param string $died (via POST): artist's year of death (free form string)
+ * @param string $wt (via POST): work title
+ * @param string $wd (via POST): work date
+ */
 
 	if(session_id() == '') {
         	session_start();

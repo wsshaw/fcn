@@ -1,16 +1,20 @@
-<?
+<?php
   	/** 
-	* workview.php: Usually opened in a shadowbox as a modal overlay, workview.php is 
-	* available from many places in the game.  It displays an enlargement of the image 
-	* in question, its description (if a user has created one), and its provenance in 
-	* the current game.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*
-	* @param wid (via GET): the id (work table primary key) of the work in question.
-	*/
+	 * Artwork detail viewer for Fantasy Collecting
+	 * 
+	 * Displays detailed view of individual artworks, typically opened in a shadowbox
+	 * modal overlay from various locations throughout the game. Shows enlarged image,
+	 * user-created descriptions, and provenance history within the current game.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-08-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 *
+	 * @param int $_GET['wid'] The artwork ID (works table primary key)
+	 */
 
 	if(session_id() == '') {
         	session_start();

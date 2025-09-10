@@ -1,9 +1,16 @@
 <?php
-	/**
-	* comm.php: Utility script that posts a general announcement to all collectors.
-	*
-	* @param msg (Via POST): The message for all collectors.
-	*/
+/**
+ * comm.php: Utility script that posts a general announcement to all collectors.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2006 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param string $msg (via POST): The message for all collectors.
+ */
 
         ob_start( );
                 require '../functions.php';

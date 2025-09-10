@@ -1,14 +1,16 @@
-<?
-
-        /**
-        * jewel.php: So named because the notification feed was once accessible from a Facebook-style
-	*  jewel icon.  This script is included in the major game state pages and prints out the 
-	*  persistent notification stream (new messages, trades, etc.) 
-	*
-        * @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-        * @version 0.1, 10/2012
-        */
+<?php
+/**
+ * jewel.php: So named because the notification feed was once accessible from a Facebook-style
+ * jewel icon. This script is included in the major game state pages and prints out the
+ * persistent notification stream (new messages, trades, etc.)
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-10 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
 	if(session_id() == '') {
 		session_start();

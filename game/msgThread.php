@@ -1,15 +1,17 @@
 <?php
-
-	/**
-	* msgThread.php: Display a message thread between two users.  Called from within
-	* mail.php to display conversations.
-	*
-	* @param uidf The target user -- i.e., display messages from this person.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 1/2013
-	*/
+/**
+ * msgThread.php: Display a message thread between two users. Called from within
+ * mail.php to display conversations.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $uidf (via GET): The target user -- i.e., display messages from this person.
+ */
 
 	if(session_id() == '') {
 		session_start();

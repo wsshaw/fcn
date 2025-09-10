@@ -1,21 +1,24 @@
-<?      
-	/**
-	* deleteClassified.php: Again, despite the misleading name, this is the script that's called when
-	* a user stops an auction in progress.  Called from button-clicks in marketplace.php, "Manage Auctions"
-	* tab.  
-	*
-	* @param id (via GET) - the id # of the auction being cancelled.  Corresponds to primary key of auctions table.
-	* @param u (via GET) - the user ID of the person cancelling the auction.  We pass it from marketplace.php
-	*   so we can double-check it against the $uuid session variable, ensuring that only the actual owner of this
-	*   auction can delete it. 
-	*
-	* Side note: the reason many of these scripts accept parameters via GET rather than POST is that jQuery's ajax()
-	* function seems to pass data more reliably via GET in WebKit browsers.  No idea why. 
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 2/2013 
-	*/
+<?php
+/**
+ * deleteClassified.php: Again, despite the misleading name, this is the script that's called when
+ * a user stops an auction in progress. Called from button-clicks in marketplace.php, "Manage Auctions"
+ * tab.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-02 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $id (via GET) - the id # of the auction being cancelled. Corresponds to primary key of auctions table.
+ * @param int $u (via GET) - the user ID of the person cancelling the auction. We pass it from marketplace.php
+ *   so we can double-check it against the $uuid session variable, ensuring that only the actual owner of this
+ *   auction can delete it.
+ *
+ * Side note: the reason many of these scripts accept parameters via GET rather than POST is that jQuery's ajax()
+ * function seems to pass data more reliably via GET in WebKit browsers. No idea why.
+ */
 
 	if(session_id() == '') {
         	session_start();

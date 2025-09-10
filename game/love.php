@@ -1,14 +1,17 @@
 <?php
-	/**
-	* love.php: Input processor for clicks on the love div in userCollection.php.  Simply updates
-	* the likes table to reflect user's current opinion of a work.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 1/2013
-	* 
-	* @param wid (via GET) - The work id.
-	*/
+/**
+ * love.php: Input processor for clicks on the love div in userCollection.php. Simply updates
+ * the likes table to reflect user's current opinion of a work.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $wid (via GET) - The work id.
+ */
 
         if(session_id() == '') {
                 session_start();

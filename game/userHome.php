@@ -1,14 +1,17 @@
 <?php
-  	/** 
-	* userHome.php: Collection page for the currently logged-in user.  This really shouldn't be a separate 
-	* script from userCollection.php; the only real differences are that the active user has "add tombstone/
-	* add description" links below each image in his or her collection.  Future improvement: fold userHome 
-	* into userCollection.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+/**
+ * userHome.php: Collection page for the currently logged-in user. This really shouldn't be a separate
+ * script from userCollection.php; the only real differences are that the active user has "add tombstone/
+ * add description" links below each image in his or her collection. Future improvement: fold userHome
+ * into userCollection.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
 	if(session_id() == '') {
         	session_start();

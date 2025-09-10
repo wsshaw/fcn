@@ -1,21 +1,23 @@
-<?
-
-	/**
-	* tradeApproval.php: Input handler for accepting/rejecting trades.  Called by buttons on 
-	* marketplace.php.
-	* 
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*
-	* @param tid (via POST) - trade id, corresponding to primary key of trades table
-	* @param a (via POST) - approval action; 1 = accept, 0 = reject
-	* @param originId (via POST) - user ID of the person who originated this trade
-	* @param destination (via POST) - user ID of the trade recipient
-	* @param tradeMessage (via POST) - (optional) comment explaining why a trade was rejected.
-	* @param offered (via POST) - works offered by the initiator of this trade
-	* @param traded_for (via POST) - works requested by the initiator of this trade
-	*/
+<?php
+/**
+ * tradeApproval.php: Input handler for accepting/rejecting trades. Called by buttons on
+ * marketplace.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $tid (via POST) - trade id, corresponding to primary key of trades table
+ * @param int $a (via POST) - approval action; 1 = accept, 0 = reject
+ * @param int $originId (via POST) - user ID of the person who originated this trade
+ * @param int $destination (via POST) - user ID of the trade recipient
+ * @param string $tradeMessage (via POST) - (optional) comment explaining why a trade was rejected.
+ * @param string $offered (via POST) - works offered by the initiator of this trade
+ * @param string $traded_for (via POST) - works requested by the initiator of this trade
+ */
 
 	if(session_id() == '') {
         	session_start();

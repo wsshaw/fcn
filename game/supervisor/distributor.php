@@ -1,12 +1,19 @@
-<?
-	/**
-	* distributor.php: Script that distributes initial collections to all registered users and gives
-	* 200 FCGs to each player.  
-	*
-	* @param gameid (via GET): the id # of this game.  
-	* @param colsize (via GET): the initial size of this collection.
-	* @param maxsize (via GET): Maximum allowable collection size.  Not actually used in the game right now.
-	*/
+<?php
+/**
+ * distributor.php: Script that distributes initial collections to all registered users and gives
+ * 200 FCGs to each player.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2006 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $gameid (via GET): the id # of this game.
+ * @param int $colsize (via GET): the initial size of this collection.
+ * @param int $maxsize (via GET): Maximum allowable collection size. Not actually used in the game right now.
+ */
 	$gameinstance = $_GET['gameid'];
 	$initialSize = $_GET['colsize'];
 	$maxSize = $_GET['maxsize'];

@@ -1,18 +1,21 @@
-<?php   
-	/**
-	* postClassified.php: Post not a classified but an auction.  Todo: refactor.  Handles input
-	* from createClassified.php, allowing users to create auctions.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1., 1/2013
-	* 
-	* @param worksToList (via POST): work id to list in the auction.
-	* @param price (via POST): starting bid.
-	* @param reserve (via POST): reserve price for this auction (optional)
-	* @param duration (via POST): length of the auction in days.
-	* @param bin (via POST): buy-it-now price (optional)
-	*/
+<?php
+/**
+ * postClassified.php: Post not a classified but an auction. Todo: refactor. Handles input
+ * from createClassified.php, allowing users to create auctions.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2013-01 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $worksToList (via POST): work id to list in the auction.
+ * @param float $price (via POST): starting bid.
+ * @param float $reserve (via POST): reserve price for this auction (optional)
+ * @param int $duration (via POST): length of the auction in days.
+ * @param float $bin (via POST): buy-it-now price (optional)
+ */
 
 	if(session_id() == '') {
         	session_start();

@@ -1,12 +1,18 @@
 <?php
 	/**
-	* dataFactory.php: The generic name doesn't tell you much, but this script creates JSON data describing
-	* all trade activity in the game.  It's used to make a chordal graph in the dashboard on home.php.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 1/2013
-	*/
+	 * Trade activity data generator for Fantasy Collecting dashboard
+	 * 
+	 * Generates JSON data describing all trade activity within the game for
+	 * visualization purposes. Used to create chordal graphs displayed on the
+	 * user dashboard (home.php) showing trading relationships between players.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2013-01-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */
         ob_start( );                
 		require '../functions.php';        
 		require '../db.php';

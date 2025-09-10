@@ -1,21 +1,23 @@
 <?php
-	/**
-	* ca.php: The cryptic name is short for 'challenge approver.'  This script is called from home.php;
-	*  it's available to players who have obtained coinisseur status and allows them to validate other
-	*  players' tombstone submissions.  They earn 10 FCGs for doing so.
-	*
-	* @param tombstoneId (via GET) - the ID of the tombstone (corresponds to primary key of tombstones table)
-	* @param uuid (via GET) - the user ID of the player who's submitting this approval form.
-	* @param action (via GET) - whether approved or rejected.  1 = accepted; 0 = rejected 
-	* @param player (via GET) - the player who submitted the tombstone currently being approved (or rejected)
-	* @param work (via GET) - the work id attached to this tombstone.  Corresponds to the primary key of
-	*   of the works table. 
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 10/2012
-	*
-	*/
+/**
+ * ca.php: The cryptic name is short for 'challenge approver.' This script is called from home.php;
+ * it's available to players who have obtained connoisseur status and allows them to validate other
+ * players' tombstone submissions. They earn 10 FCGs for doing so.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-10 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $tombstoneId (via GET) - the ID of the tombstone (corresponds to primary key of tombstones table)
+ * @param int $uuid (via GET) - the user ID of the player who's submitting this approval form.
+ * @param int $action (via GET) - whether approved or rejected. 1 = accepted; 0 = rejected
+ * @param int $player (via GET) - the player who submitted the tombstone currently being approved (or rejected)
+ * @param int $work (via GET) - the work id attached to this tombstone. Corresponds to the primary key of
+ *   the works table.
+ */
         ob_start( );
 		require 'db.php';
 		require 'functions.php';        

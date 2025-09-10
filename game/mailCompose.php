@@ -1,15 +1,17 @@
 <?php
-
-	/**
-	* mailCompose.php: Form for composing messages in the in-game mail system.  Handled by 
-	* mailProcessor.php.  Called by the new message button in mail.php; replies are handled directly
-	* by mailProcesor.php and submitted via a textarea on mail.php.  In other words, this form is
-	* used only for starting new threads.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/ 
+/**
+ * mailCompose.php: Form for composing messages in the in-game mail system. Handled by
+ * mailProcessor.php. Called by the new message button in mail.php; replies are handled directly
+ * by mailProcessor.php and submitted via a textarea on mail.php. In other words, this form is
+ * used only for starting new threads.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */ 
 
 	if(session_id() == '') {
         	session_start();

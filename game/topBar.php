@@ -1,13 +1,16 @@
 <?php
-	/**
-	* topBar.php: Navigation bar that's included at the top of major game states.  
-	* Basic navigation paths to other parts of the game, along with an at-a-glance
-	* view of the player's current score.
-	* 	
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+/**
+ * topBar.php: Navigation bar that's included at the top of major game states.
+ * Basic navigation paths to other parts of the game, along with an at-a-glance
+ * view of the player's current score.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
         if(session_id() == '') {
                 session_start();

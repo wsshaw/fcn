@@ -1,17 +1,21 @@
 <?php
-	/**
-	* img.php: Display an image in the game, either at full size or as a thumbnail.  
-	* 	The reason this script exists at all is that it's useful for masking filenames 
-	*	that might reveal information players are supposed to figure out on their own 
-	*	(artist, work title, date, etc.). 
-	* 
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @param img ID of the image file (primary key of the works table).
-	* @param mode Either "full" or "thumb": if the former, just display the full size image; if
-	*  	the latter, get the thumbnail image, which we expect to find in $FCN_IMAGES_PATH/thumbs/. 
-	* @version 0.1, 5/2012
-	*/
+/**
+ * img.php: Display an image in the game, either at full size or as a thumbnail.
+ * The reason this script exists at all is that it's useful for masking filenames
+ * that might reveal information players are supposed to figure out on their own
+ * (artist, work title, date, etc.).
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-05 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $img (via GET): ID of the image file (primary key of the works table).
+ * @param string $mode (via GET): Either "full" or "thumb": if the former, just display the full size image; if
+ *   the latter, get the thumbnail image, which we expect to find in $FCN_IMAGES_PATH/thumbs/.
+ */
 	$img = $_GET['img'];
 	$mode = isset( $_GET['mode'] ) ? $_GET['mode'] : "full";
 

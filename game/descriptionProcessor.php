@@ -1,16 +1,19 @@
-<?      
-	/**
-	* descriptionProcessor.php: Form processor for submitting descriptions.  Called only from addDescription (the form
-	* that also edits existing descriptions of works).  
-	* 
-	* @param work (via POST) - work ID in question.
-	* @param desc (via POST) - text description of the work, its provenance, significance, etc.
-	* @param mode (via POST) - either "new" (entirely new description) or "edit" (change existing).
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+<?php
+/**
+ * descriptionProcessor.php: Form processor for submitting descriptions. Called only from addDescription (the form
+ * that also edits existing descriptions of works).
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param int $work (via POST) - work ID in question.
+ * @param string $desc (via POST) - text description of the work, its provenance, significance, etc.
+ * @param string $mode (via POST) - either "new" (entirely new description) or "edit" (change existing).
+ */
 
 	if(session_id() == '') {
         	session_start();

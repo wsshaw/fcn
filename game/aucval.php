@@ -1,18 +1,20 @@
-<?
+<?php
 	/**
-	* aucval.php: In the live auction system, this script is called by client-side polling
-	* every couple seconds to update the high bidder, time of last bid, and bid amount in
-	* JSON format.  
-	*
-	* @param i (via GET): the auction id.  Corresponds with primary key of auctions table.
-	* 
-	* Called by: marketplace.php (within JavaScript polling function).
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 10/2012
-	* 
-	*/
+	 * Live auction data API endpoint for Fantasy Collecting
+	 * 
+	 * Provides real-time auction data via JSON for client-side polling in the
+	 * live auction system. Returns current high bidder, last bid time, and
+	 * bid amount. Called periodically by JavaScript from marketplace.php.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-10-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 * 
+	 * @param int $_GET['i'] The auction ID (auctions table primary key)
+	 */
 
 	if(session_id() == '') {
         	session_start();

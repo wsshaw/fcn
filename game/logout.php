@@ -1,13 +1,16 @@
-<?
-	/**
-	* logout.php: End the user's session.
-	*
-	* TODO: This should really just redirect back to the main login page instead of replicating it.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012 
-	*/
+<?php
+/**
+ * logout.php: End the user's session.
+ *
+ * TODO: This should really just redirect back to the main login page instead of replicating it.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
 	session_destroy();
 

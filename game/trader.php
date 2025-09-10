@@ -1,11 +1,14 @@
-<?
-	/**
-	* trader.php: Display the "trade table."  Called from userCollection.php, handled by tradeProcessor.php.
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 8/2012
-	*/
+<?php
+/**
+ * trader.php: Display the "trade table." Called from userCollection.php, handled by tradeProcessor.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2012-08 (original), 2025-09-10 (modernized)
+ * @license MIT
+ */
 
 	if(session_id() == '') {
         	session_start();

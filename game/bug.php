@@ -1,13 +1,19 @@
 <?php
 
 	/** 
-	* bug.php: Form allowing users to submit bug reports and feature requests from anywhere in the game.
-	*  Input to this form is handled by bugProcessor.php.  
-	*
-	* @author William Shaw <william.shaw@duke.edu>
-        * @author Katherine Jentleson <katherine.jentleson@duke.edu>, designer
-	* @version 0.1, 10/2012 
-	*/
+	 * Bug report and feature request form for Fantasy Collecting
+	 * 
+	 * Provides form interface allowing users to submit bug reports and feature
+	 * requests from anywhere within the game. Form submissions are processed
+	 * by bugProcessor.php and stored in the bugs database table.
+	 *
+	 * @package    FantasyCollecting
+	 * @author     William Shaw <william.shaw@duke.edu>
+	 * @author     Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+	 * @version    0.2 (modernized)
+	 * @since      2012-10-01 (original), 2025-09-10 (modernized)
+	 * @license    MIT
+	 */
 
 	if(session_id() == '') {
         	session_start();

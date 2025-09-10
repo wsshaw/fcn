@@ -1,14 +1,21 @@
 <?php
-	/**
-	* ca.php: Award players for entering tombstones or descriptions.  Called from a form on index.php.
-	*
-	* @param mode (via GET): Whether we're approving/rejecting a tombstone (ts) or description (d).
-	* @param tombstoneId (via GET): The id of this tombstone (or description) -- primary key of the 
-	* 	appropriate table.
-	* @param action (Via GET): 'approve' or 'reject'	
-	* @param player (via GET): player id we're awarding (or telling to try again)
-	* @param work (via GET): work id, primary key of works table.
-	*/
+/**
+ * ca.php: Award players for entering tombstones or descriptions.  Called from a form on index.php.
+ *
+ * @package FantasyCollecting
+ * @author William Shaw <william.shaw@duke.edu>
+ * @author Katherine Jentleson <katherine.jentleson@duke.edu> (designer)
+ * @version 0.2 (modernized)
+ * @since 2006 (original), 2025-09-10 (modernized)
+ * @license MIT
+ *
+ * @param string $mode (via GET): Whether we're approving/rejecting a tombstone (ts) or description (d).
+ * @param int $tombstoneId (via GET): The id of this tombstone (or description) -- primary key of the 
+ *   appropriate table.
+ * @param string $action (via GET): 'approve' or 'reject'
+ * @param int $player (via GET): player id we're awarding (or telling to try again)
+ * @param int $work (via GET): work id, primary key of works table.
+ */
         ob_start( );                
 		require '../functions.php';        
 		require '../db.php';
