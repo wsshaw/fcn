@@ -6,6 +6,8 @@
 
 Fantasy Collecting (FC) is a classroom teaching and research tool that uses the activity of art markets to help students learn about art. In the process, students experience firsthand how promotion and trading influence an artwork's market value.
 
+**NOTE (2025-09-10):** This code isn't safe to run in a production environment at the moment. There are too many vulnerabilities (SQL injection, MD5, CSRF), but I started a small project to modernize the code and deploy it experimentally. Fixes are incoming as I have time to add them, but don't assume that the software is ready for public use.
+
 ### Resources
 
 For more information about Fantasy Collecting, please see:
